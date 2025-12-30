@@ -9,7 +9,7 @@ A professional desktop GUI for password analysis and secure generation.
 
 ## 📥 Quick Download (Windows)
 
-**[⬇️ Download PasswordChecker.exe](https://github.com/bnahmedsoumaya00/cybersecurity-projects/releases/download/v1.0.0/PasswordChecker.exe)**
+**[⬇️ Download PasswordChecker.exe](https://github.com/bnahmedsoumaya00/Beginner-Python-Cybersecurity-Projects/releases/download/v1.0.0/PasswordChecker.exe)**
 
 _No install, just double-click. If Windows Defender warns, click "More info" → "Run anyway"._
 
