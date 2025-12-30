@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+. venv/
+env/
+ENV/
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+*. log
+test_passwords.txt
+screenshots/temp/
+
+# PyInstaller build files
+build/
+dist/
+*.spec
+*. exe
+*. app
+*. dmg
+
+# Release files (keep in releases folder but don't track)
+releases/
