@@ -48,10 +48,3 @@ python password_checker.py
 - GUI, easy to use
 
 ---
-
-## 📦 Changelog
-
-- **v1.0.0**: Initial public release  
-  - Password checker/generator, GUI, bugfixes
-
-[See all releases](https://github.com/bnahmedsoumaya00/cybersecurity-projects/releases)
