@@ -1,7 +1,7 @@
-# 🔍 Advanced Port Scanner
+# 🔍 Port Scanner
 
-[![Download v1.0.0](https://img.shields.io/badge/Download-v1.0.0-brightgreen?style=flat-square)](https://github.com/bnahmedsoumaya00/Beginner-Python-Cybersecurity-Projects/releases/download/v1.0.0/port_scanner.exe)
-[![Release](https://img.shields.io/github/v/release/bnahmedsoumaya00/Beginner-Python-Cybersecurity-Projects?style=flat-square)](https://github.com/bnahmedsoumaya00/Beginner-Python-Cybersecurity-Projects/releases)
+[![Download port_scanner](https://img.shields.io/badge/Download-v1.0.0-brightgreen?style=flat-square)](https://github.com/bnahmedsoumaya00/Beginner-Python-Cybersecurity-Projects/releases/download/port_scanner/PortScanner.exe)
+[![Release](https://img.shields.io/github/v/release/bnahmedsoumaya00/Beginner-Python-Cybersecurity-Projects?style=flat-square)](https://github.com/bnahmedsoumaya00/Beginner-Python-Cybersecurity-Projects/releases/)
 
 A fast, multithreaded port scanner with both command-line and GUI interfaces. This tool is designed for cybersecurity professionals and enthusiasts to quickly identify open ports, detect services, and generate detailed reports.
 
@@ -9,7 +9,7 @@ A fast, multithreaded port scanner with both command-line and GUI interfaces. Th
 
 ## 📥 Quick Download (Windows)
 
-**[⬇️ Download port_scanner.exe](https://github.com/bnahmedsoumaya00/Beginner-Python-Cybersecurity-Projects/releases/download/v1.0.0/port_scanner.exe)**
+**[⬇️ Download port_scanner.exe](https://github.com/bnahmedsoumaya00/Beginner-Python-Cybersecurity-Projects/releases/download/port_scanner/PortScanner.exe)**
 
 _No install, just double-click. If Windows Defender warns, click "More info" → "Run anyway."_'
 
@@ -18,7 +18,7 @@ _No install, just double-click. If Windows Defender warns, click "More info" →
 ## ⚙️ Installation
 
 ### **Option 1: Windows Executable**
-1. Download the EXE file from the [Releases](https://github.com/bnahmedsoumaya00/Beginner-Python-Cybersecurity-Projects/releases).
+1. Download the EXE file from the [Releases](https://github.com/bnahmedsoumaya00/Beginner-Python-Cybersecurity-Projects/releases/download/port_scanner/PortScanner.exe).
 2. Double-click to run.
 
 ### **Option 2: Run from Source (Cross-Platform)**
