@@ -1,0 +1,64 @@
+# System Info & Geolocation Extractor - Git Ignore
+
+# Sensitive configuration files
+config.json              # Contains API tokens - NEVER commit!
+*.key
+*.pem
+.env
+
+# Output files (generated reports)
+output/
+*.json
+!requirements.txt        # Exception: keep requirements.json
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Operating system files
+Thumbs.db
+Desktop.ini
+.directory
+
+# Test files
+test_*.py
+*_test.py
+
+# Logs
+*.log
+
+# Backup files
+*.bak
+*.backup
