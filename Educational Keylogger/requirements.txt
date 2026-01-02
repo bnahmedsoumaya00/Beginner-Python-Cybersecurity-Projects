@@ -1,0 +1,30 @@
+# Educational Keylogger - Dependencies
+# Project 4 - Cybersecurity Python Roadmap
+
+# Core keylogging library
+pynput>=1.7.6
+
+# Windows-specific (optional, some features work without it)
+pywin32>=305; sys_platform == 'win32'
+
+# Process information
+psutil>=5.9.0
+
+# Email functionality (optional - disabled by default for safety)
+# smtplib is built-in to Python
+
+# Note: This project uses standard library modules where possible
+# to minimize dependencies and potential security risks.
+
+# Standard library modules used (no installation needed):
+# - socket
+# - platform  
+# - logging
+# - smtplib
+# - email
+# - getpass
+# - datetime
+# - threading
+# - json
+# - os
+# - sys
