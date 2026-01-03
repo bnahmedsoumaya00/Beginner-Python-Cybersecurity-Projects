@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block title %}Select Demo - Autofill Attack Simulator{% endblock %}
+
+{% block extra_css %}
+<style>
+    .demo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+    
+    .demo-card {
+        background: var(--bg-card);
+        border: 2px solid rgba(0, 255, 136, 0.2);
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+        transition: all var(--transition-normal);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .demo-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity var(--transition-slow);
+    }
+    
+    .demo-card:hover::before {
+        opacity: 1;
+    }
+    
+    .demo-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        border-color: var(--primary);
+        box-shadow: var(--glow-primary), 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+    
+    .demo-icon {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .demo-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+        position: relative;
+        z-index: 1;
+    }
+    
+    .demo-description {
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .difficulty {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .difficulty-easy { background: rgba(0, 255, 136, 0.2); color: var(--success); }
+    .difficulty-medium { background: rgba(255, 204, 0, 0.2); color: var(--warning); }
+    .difficulty-hard { background: rgba(255, 51, 102, 0.2); color: var(--danger); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="text-align: center; margin-bottom: 3rem;">
+    <h1><i class="fas fa-vials"></i> Select a Demonstration</h1>
+    <p style="font-size: 1.2rem; color: var(--text-secondary); margin-top: 1rem;">
+        Choose a platform to see how autofill vulnerabilities work
+    </p>
+</div>
+
+<div class="card" style="background: rgba(255, 204, 0, 0.1); border-color: var(--warning);">
+    <h3 style="color: var(--warning);"><i class="fas fa-info-circle"></i> Before You Begin</h3>
+    <p>
+        These demonstrations show how attackers create fake login pages to capture credentials.
+        All captures stay on your local machine. This is for <strong>educational purposes only</strong>.
+    </p>
+</div>
+
+<div class="demo-grid">
+    <a href="{{ url_for('demo_google') }}" style="text-decoration: none;">
+        <div class="demo-card">
+            <div class="demo-icon">🔵</div>
+            <h3 class="demo-title">Google</h3>
+            <span class="difficulty difficulty-easy">EASY</span>
+            <p class="demo-description">
+                Fake Google sign-in page demonstrating basic autofill capture
+            </p>
+            <div class="btn btn-primary" style="display: inline-block;">
+                <span>Try Demo →</span>
+            </div>
+        </div>
+    </a>
+    
+    <a href="{{ url_for('demo_facebook') }}" style="text-decoration: none;">
+        <div class="demo-card">
+            <div class="demo-icon">🔷</div>
+            <h3 class="demo-title">Facebook</h3>
+            <span class="difficulty difficulty-easy">EASY</span>
+            <p class="demo-description">
+                Fake Facebook login showing social media credential risks
+            </p>
+            <div class="btn btn-primary" style="display: inline-block;">
+                <span>Try Demo →</span>
+            </div>
+        </div>
+    </a>
+    
+    <a href="{{ url_for('demo_linkedin') }}" style="text-decoration: none;">
+        <div class="demo-card">
+            <div class="demo-icon">💼</div>
+            <h3 class="demo-title">LinkedIn</h3>
+            <span class="difficulty difficulty-medium">MEDIUM</span>
+            <p class="demo-description">
+                Professional network fake page with enhanced legitimacy
+            </p>
+            <div class="btn btn-primary" style="display: inline-block;">
+                <span>Try Demo →</span>
+            </div>
+        </div>
+    </a>
+    
+    <a href="{{ url_for('demo_github') }}" style="text-decoration: none;">
+        <div class="demo-card">
+            <div class="demo-icon">⚫</div>
+            <h3 class="demo-title">GitHub</h3>
+            <span class="difficulty difficulty-medium">MEDIUM</span>
+            <p class="demo-description">
+                Developer platform showing code repository credential theft
+            </p>
+            <div class="btn btn-primary" style="display: inline-block;">
+                <span>Try Demo →</span>
+            </div>
+        </div>
+    </a>
+    
+    <a href="{{ url_for('demo_banking') }}" style="text-decoration: none;">
+        <div class="demo-card">
+            <div class="demo-icon">🏦</div>
+            <h3 class="demo-title">Banking Portal</h3>
+            <span class="difficulty difficulty-hard">HARD</span>
+            <p class="demo-description">
+                Sophisticated fake banking page with SSL indicators
+            </p>
+            <div class="btn btn-primary" style="display: inline-block;">
+                <span>Try Demo →</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<div class="card">
+    <h2><i class="fas fa-lightbulb"></i> What to Look For</h2>
+    <p>As you try these demonstrations, pay attention to:</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+        <div style="padding: 1.5rem; background: var(--bg-tertiary); border-radius: 12px;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">
+                <i class="fas fa-link"></i> URL Tricks
+            </h4>
+            <p style="color: var(--text-secondary); margin: 0; font-size: 0.9rem;">
+                How fake pages use similar-looking domains
+            </p>
+        </div>
+        
+        <div style="padding: 1.5rem; background: var(--bg-tertiary); border-radius: 12px;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">
+                <i class="fas fa-paint-brush"></i> Design Mimicry
+            </h4>
+            <p style="color: var(--text-secondary); margin: 0; font-size: 0.9rem;">
+                How attackers copy legitimate designs
+            </p>
+        </div>
+        
+        <div style="padding: 1.5rem; background: var(--bg-tertiary); border-radius: 12px;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">
+                <i class="fas fa-keyboard"></i> Autofill Capture
+            </h4>
+            <p style="color: var(--text-secondary); margin: 0; font-size: 0.9rem;">
+                How credentials are captured silently
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}Educational Warning{% endblock %}
+
+{% block extra_css %}
+<style>
+    .warning-container {
+        max-width: 900px;
+        margin: 4rem auto;
+        text-align: center;
+    }
+    
+    .warning-header {
+        font-size: 5rem;
+        animation: pulse 2s ease infinite;
+    }
+    
+    .warning-box {
+        background: rgba(255, 51, 102, 0.1);
+        border: 2px solid var(--danger);
+        border-radius: 16px;
+        padding: 3rem;
+        margin: 2rem 0;
+        box-shadow: 0 0 40px rgba(255, 51, 102, 0.3);
+    }
+    
+    .checkbox-container {
+        background: var(--bg-tertiary);
+        padding: 2rem;
+        border-radius: 12px;
+        margin: 2rem 0;
+        text-align: left;
+    }
+    
+    .checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 1rem 0;
+        padding: 1rem;
+        background: var(--bg-card);
+        border-radius: 8px;
+        transition: var(--transition-fast);
+    }
+    
+    .checkbox-item:hover {
+        background: var(--bg-secondary);
+    }
+    
+    .checkbox-item input[type="checkbox"] {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+    }
+    
+    .submit-btn {
+        margin-top: 2rem;
+        padding: 1.5rem 3rem;
+        font-size: 1.2rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="warning-container">
+    <div class="warning-header">
+        ⚠️
+    </div>
+    
+    <h1 style="color: var(--danger); margin-bottom: 1rem;">CRITICAL LEGAL WARNING</h1>
+    <h2 style="color: var(--text-secondary);">Read Carefully Before Proceeding</h2>
+    
+    <div class="warning-box">
+        <h3 style="color: var(--danger); margin-bottom: 1.5rem;">
+            This is an EDUCATIONAL TOOL ONLY
+        </h3>
+        
+        <p style="font-size: 1.1rem; line-height: 1.8; text-align: left;">
+            You are about to access a browser autofill attack simulator designed exclusively for
+            <strong>security awareness training</strong> and <strong>educational purposes</strong>.
+        </p>
+        
+        <div style="text-align: left; margin: 2rem 0;">
+            <h4 style="color: var(--primary); margin-bottom: 1rem;">❌ ILLEGAL USES:</h4>
+            <ul style="color: var(--text-secondary); line-height: 2;">
+                <li>Deploying fake pages publicly</li>
+                <li>Actual phishing attacks</li>
+                <li>Capturing real user credentials</li>
+                <li>Any unauthorized testing</li>
+                <li>Social engineering attacks</li>
+            </ul>
+            
+            <h4 style="color: var(--primary); margin-top: 2rem; margin-bottom: 1rem;">✅ LEGAL USES:</h4>
+            <ul style="color: var(--text-secondary); line-height: 2;">
+                <li>Security awareness training (authorized)</li>
+                <li>Educational demonstrations (local only)</li>
+                <li>Learning defensive security</li>
+                <li>Understanding phishing mechanics</li>
+            </ul>
+        </div>
+        
+        <div style="background: rgba(255, 204, 0, 0.1); padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+            <p style="color: var(--warning); font-weight: bold; margin: 0;">
+                ⚖️ Unauthorized use may result in criminal prosecution under
+                computer fraud and abuse laws (CFAA, GDPR, etc.)
+            </p>
+        </div>
+    </div>
+    
+    <form method="POST" action="{{ url_for('acknowledge_educational') }}">
+        <div class="checkbox-container">
+            <h3 style="margin-bottom: 1.5rem;">Confirm ALL of the following:</h3>
+            
+            <label class="checkbox-item">
+                <input type="checkbox" required>
+                <span>I understand this is for EDUCATIONAL purposes ONLY</span>
+            </label>
+            
+            <label class="checkbox-item">
+                <input type="checkbox" required>
+                <span>I will ONLY run this tool locally on my own machine</span>
+            </label>
+            
+            <label class="checkbox-item">
+                <input type="checkbox" required>
+                <span>I will NEVER use this for actual phishing attacks</span>
+            </label>
+            
+            <label class="checkbox-item">
+                <input type="checkbox" required>
+                <span>I understand unauthorized use is ILLEGAL</span>
+            </label>
+            
+            <label class="checkbox-item">
+                <input type="checkbox" required>
+                <span>I accept full legal responsibility for my actions</span>
+            </label>
+            
+            <label class="checkbox-item">
+                <input type="checkbox" required>
+                <span>I will use this knowledge to PROTECT, not HARM</span>
+            </label>
+        </div>
+        
+        <button type="submit" class="btn btn-primary submit-btn">
+            <span><i class="fas fa-check-circle"></i> I Acknowledge & Accept</span>
+        </button>
+    </form>
+    
+    <p style="margin-top: 2rem; color: var(--text-muted); font-size: 0.9rem;">
+        By proceeding, you agree to use this tool ethically and legally.
+    </p>
+</div>
+{% endblock %}

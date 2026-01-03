@@ -1,0 +1,338 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Browser Autofill Attack Simulator{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero {
+        text-align: center;
+        padding: 4rem 0;
+        position: relative;
+    }
+    
+    .hero-title {
+        font-size: 4rem;
+        font-weight: 900;
+        margin-bottom: 1rem;
+        animation: fadeInDown 0.8s ease;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.5rem;
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+        animation: fadeInUp 0.8s ease 0.2s both;
+    }
+    
+    .hero-warning {
+        background: rgba(255, 51, 102, 0.1);
+        border: 1px solid var(--danger);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 2rem auto;
+        max-width: 800px;
+        animation: pulse 2s ease infinite;
+    }
+    
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { box-shadow: 0 0 20px rgba(255, 51, 102, 0.3); }
+        50% { box-shadow: 0 0 40px rgba(255, 51, 102, 0.6); }
+    }
+    
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+    
+    .feature-card {
+        background: var(--bg-card);
+        border: 1px solid rgba(0, 255, 136, 0.2);
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+        transition: var(--transition-normal);
+        animation: fadeIn 0.6s ease;
+        animation-fill-mode: both;
+    }
+    
+    .feature-card:nth-child(1) { animation-delay: 0.1s; }
+    .feature-card:nth-child(2) { animation-delay: 0.2s; }
+    .feature-card:nth-child(3) { animation-delay: 0.3s; }
+    .feature-card:nth-child(4) { animation-delay: 0.4s; }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        border-color: var(--primary);
+        box-shadow: var(--glow-primary);
+    }
+    
+    .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .feature-title {
+        font-size: 1.5rem;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+    }
+    
+    .feature-description {
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+    
+    .cta-section {
+        text-align: center;
+        padding: 4rem 0;
+        background: var(--bg-secondary);
+        border-radius: 16px;
+        margin: 3rem 0;
+        border: 1px solid rgba(0, 255, 136, 0.2);
+    }
+    
+    .cta-buttons {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 3rem 0;
+    }
+    
+    .stat-card {
+        background: var(--bg-tertiary);
+        padding: 1.5rem;
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid rgba(0, 255, 136, 0.2);
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: var(--primary);
+        display: block;
+    }
+    
+    .stat-label {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1 class="hero-title">
+        <i class="fas fa-skull-crossbones"></i>
+        Browser Autofill Attack Simulator
+    </h1>
+    <p class="hero-subtitle">
+        Educational tool demonstrating browser autofill security vulnerabilities
+    </p>
+    
+    <div class="hero-warning">
+        <h3 style="color: var(--danger); margin-bottom: 0.5rem;">
+            <i class="fas fa-exclamation-triangle"></i> EDUCATIONAL PURPOSE ONLY
+        </h3>
+        <p style="color: var(--text-secondary); margin-bottom: 0;">
+            This tool is designed for security awareness training and educational demonstrations.
+            Never use for actual phishing attacks. Run locally only.
+        </p>
+    </div>
+</div>
+
+<div class="features-grid">
+    <div class="feature-card">
+        <div class="feature-icon">
+            <i class="fas fa-vial"></i>
+        </div>
+        <h3 class="feature-title">Live Demonstrations</h3>
+        <p class="feature-description">
+            Experience realistic fake login pages that demonstrate how autofill can be exploited.
+            See exactly how attackers capture credentials.
+        </p>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">
+            <i class="fas fa-graduation-cap"></i>
+        </div>
+        <h3 class="feature-title">Training Materials</h3>
+        <p class="feature-description">
+            Comprehensive security awareness training covering phishing detection,
+            browser security, and social engineering tactics.
+        </p>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">
+            <i class="fas fa-shield-halved"></i>
+        </div>
+        <h3 class="feature-title">Protection Guide</h3>
+        <p class="feature-description">
+            Learn practical methods to protect yourself against autofill attacks
+            and phishing attempts. Implement best practices.
+        </p>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+        </div>
+        <h3 class="feature-title">Analytics Dashboard</h3>
+        <p class="feature-description">
+            Track captured credentials, analyze patterns, and understand
+            what makes phishing attacks successful.
+        </p>
+    </div>
+</div>
+
+<div class="card">
+    <h2><i class="fas fa-info-circle"></i> What is Browser Autofill?</h2>
+    <p>
+        Browser autofill is a convenience feature that automatically fills in forms with saved information
+        like usernames, passwords, addresses, and credit card details. While convenient, it poses security risks
+        when exploited by malicious actors.
+    </p>
+    
+    <h3 class="mt-4"><i class="fas fa-bug"></i> The Vulnerability</h3>
+    <p>
+        Attackers can create fake login pages that mimic legitimate websites. When users visit these pages,
+        their browsers automatically fill in saved credentials. The fake page can then capture this information
+        without the user actively submitting the form.
+    </p>
+    
+    <div class="stats-grid mt-4">
+        <div class="stat-card">
+            <span class="stat-number">91%</span>
+            <span class="stat-label">Of cyber attacks start with phishing</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number">78%</span>
+            <span class="stat-label">Of people use autofill for passwords</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number">$17.7B</span>
+            <span class="stat-label">Lost to phishing scams in 2023</span>
+        </div>
+    </div>
+</div>
+
+<div class="cta-section">
+    <h2>Ready to Learn?</h2>
+    <p class="text-secondary">
+        Explore interactive demonstrations and learn how to protect yourself
+    </p>
+    
+    <div class="cta-buttons">
+        <a href="{{ url_for('demo_selector') }}" class="btn btn-primary">
+            <span><i class="fas fa-flask"></i> Try Demos</span>
+        </a>
+        <a href="{{ url_for('training') }}" class="btn btn-secondary">
+            <span><i class="fas fa-book"></i> Start Training</span>
+        </a>
+        <a href="{{ url_for('protection') }}" class="btn btn-secondary">
+            <span><i class="fas fa-shield"></i> Protection Guide</span>
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    <h2><i class="fas fa-lightbulb"></i> How This Tool Works</h2>
+    <p>This educational simulator demonstrates three key aspects of autofill attacks:</p>
+    
+    <div style="margin: 2rem 0;">
+        <div style="display: grid; gap: 1.5rem;">
+            <div style="display: flex; gap: 1rem; align-items: start;">
+                <div style="background: var(--primary); color: var(--bg-primary); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">1</div>
+                <div>
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Credential Capture</h4>
+                    <p style="margin-bottom: 0;">See how fake pages can capture autofilled credentials without requiring user interaction</p>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; align-items: start;">
+                <div style="background: var(--primary); color: var(--bg-primary); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">2</div>
+                <div>
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Social Engineering</h4>
+                    <p style="margin-bottom: 0;">Learn how attackers create convincing fake pages that bypass user suspicion</p>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; align-items: start;">
+                <div style="background: var(--primary); color: var(--bg-primary); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">3</div>
+                <div>
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Detection & Protection</h4>
+                    <p style="margin-bottom: 0;">Discover methods to identify phishing attempts and protect your credentials</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="background: rgba(255, 204, 0, 0.05); border-color: var(--warning);">
+    <h2 style="color: var(--warning);"><i class="fas fa-exclamation-circle"></i> Important Disclaimer</h2>
+    <p>
+        <strong>This tool is for EDUCATIONAL purposes ONLY.</strong> It is designed to help individuals
+        and organizations understand security vulnerabilities and improve their defenses.
+    </p>
+    <ul style="color: var(--text-secondary); margin-left: 2rem;">
+        <li>Never use this tool for actual phishing attacks</li>
+        <li>Only run on your local machine for learning</li>
+        <li>Do not deploy to public servers</li>
+        <li>Use only for authorized security awareness training</li>
+        <li>Respect all applicable laws and regulations</li>
+    </ul>
+    <p style="margin-top: 1rem; color: var(--danger); font-weight: bold;">
+        Unauthorized use may result in criminal prosecution under computer fraud laws.
+    </p>
+</div>
+{% endblock %}

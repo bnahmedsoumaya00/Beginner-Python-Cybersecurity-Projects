@@ -1,0 +1,15 @@
+# Browser Autofill Attack Simulator - Dependencies
+# Project 5 - Cybersecurity Python Roadmap
+
+# Core Framework
+Flask==3.0.0
+Werkzeug==3.0.1
+
+# Template Engine (included with Flask)
+Jinja2==3.1.2
+
+# Optional but recommended
+python-dotenv==1.0.0  # For environment variables
+
+# Note: All other dependencies (HTML/CSS/JS) are loaded from CDN
+# No database required - uses JSON file for simplicity
