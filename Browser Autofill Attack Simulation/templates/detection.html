@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Detection Methods{% endblock %}
+
+{% block content %}
+<h1><i class="fas fa-search"></i> How to Detect Phishing Attacks</h1>
+
+<div class="card" style="text-align:center;padding:3rem;background:rgba(255,51,102,0.1);border-color:var(--danger);">
+    <h2 style="font-size:2rem;margin-bottom:1rem;color:var(--danger);">Spot the Red Flags</h2>
+    <p style="font-size:1.2rem;color:var(--text-secondary);">Learn to identify phishing attempts before they compromise your security</p>
+</div>
+
+<div class="card">
+    <h2><i class="fas fa-link"></i> Method 1: URL Analysis</h2>
+    <p style="font-size:1.1rem;">The URL is your first line of defense. Always examine it carefully.</p>
+    
+    <h3 style="color:var(--primary);margin-top:2rem;">Red Flags in URLs:</h3>
+    <ul style="color:var(--text-secondary);line-height:2;margin-top:1rem;">
+        <li><strong>Typosquatting:</strong> gooogle.com, paypa1.com, arnaz0n.com</li>
+        <li><strong>Subdomain tricks:</strong> google.com.phishing-site.net</li>
+        <li><strong>Wrong TLD:</strong> facebook.net (should be .com)</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h2><i class="fas fa-certificate"></i> Method 2: SSL Certificate Verification</h2>
+    <p>Legitimate sites use valid SSL certificates. Always check them.</p>
+    <ol style="color:var(--text-secondary);line-height:2;margin-top:1rem;">
+        <li>Click the padlock icon in the address bar</li>
+        <li>View certificate details</li>
+        <li>Verify domain name matches exactly</li>
+        <li>Check issuing authority</li>
+    </ol>
+</div>
+
+<div class="card">
+    <h2><i class="fas fa-envelope"></i> Method 3: Email Analysis</h2>
+    <p>Phishing often starts with email. Watch for:</p>
+    <ul style="color:var(--text-secondary);line-height:2;margin-top:1rem;">
+        <li>Urgency/threats ("Account will be closed!")</li>
+        <li>Generic greetings ("Dear Customer")</li>
+        <li>Spelling and grammar errors</li>
+        <li>Suspicious links and attachments</li>
+        <li>Requests for passwords or personal info</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h2><i class="fas fa-clipboard-check"></i> Quick Detection Checklist</h2>
+    <p>Use this before entering credentials:</p>
+    <div style="background:var(--bg-tertiary);padding:2rem;border-radius:12px;margin-top:1.5rem;">
+        <ul style="list-style:none;padding:0;">
+            <li style="padding:0.8rem;margin:0.5rem 0;background:var(--bg-card);border-radius:6px;">
+                ☐ Verified the URL is EXACTLY correct
+            </li>
+            <li style="padding:0.8rem;margin:0.5rem 0;background:var(--bg-card);border-radius:6px;">
+                ☐ Checked SSL certificate is valid
+            </li>
+            <li style="padding:0.8rem;margin:0.5rem 0;background:var(--bg-card);border-radius:6px;">
+                ☐ No spelling or grammatical errors
+            </li>
+            <li style="padding:0.8rem;margin:0.5rem 0;background:var(--bg-card);border-radius:6px;">
+                ☐ Design looks professional
+            </li>
+            <li style="padding:0.8rem;margin:0.5rem 0;background:var(--bg-card);border-radius:6px;">
+                ☐ Not feeling rushed or pressured
+            </li>
+        </ul>
+    </div>
+    <div style="background:rgba(255,204,0,0.1);border:1px solid var(--warning);padding:1.5rem;border-radius:12px;margin-top:2rem;">
+        <p style="margin:0;color:var(--warning);font-weight:bold;">
+            <i class="fas fa-exclamation-triangle"></i> If ANY checkbox is unchecked, DO NOT enter credentials!
+        </p>
+    </div>
+</div>
+{% endblock %}

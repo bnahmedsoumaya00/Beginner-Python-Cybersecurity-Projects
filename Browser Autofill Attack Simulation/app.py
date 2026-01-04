@@ -24,17 +24,12 @@ from datetime import datetime
 from functools import wraps
 
 # Initialize Flask app
-app = Flask(
-    __name__,
-    template_folder=os.path.abspath(
-        "c:/Users/souma/Desktop/python_workspace/cybersecurity-projects/Browser Autofill Attack Simulation/templates"
-    )
-)
-app.secret_key = 'educational_demo_key_change_in_production'  # Change for production
+app = Flask(__name__)
+app.secret_key = 'educational_demo_key_change_in_production'
 
 # Configuration
 CAPTURED_DATA_FILE = 'captured_credentials.json'
-TRAINING_MODE = True  # Always on for educational purposes
+TRAINING_MODE = True
 
 
 # ============================================================================
@@ -169,7 +164,7 @@ def capture_credentials():
         'platform': request.form.get('platform', 'Unknown'),
         'email': request.form.get('email', ''),
         'username': request.form.get('username', ''),
-        'password': '***HIDDEN***',  # Never log actual passwords even in demo
+        'password': '***HIDDEN***',
         'password_length': len(request.form.get('password', '')),
         'other_fields': {k: v for k, v in request.form.items() 
                         if k not in ['email', 'username', 'password', 'platform']}
@@ -260,7 +255,7 @@ def internal_error(e):
 # ============================================================================
 
 if __name__ == '__main__':
-    # Create templates directory if it doesn't exist
+    # Create directories if they don't exist
     os.makedirs('templates', exist_ok=True)
     os.makedirs('templates/demos', exist_ok=True)
     os.makedirs('static/css', exist_ok=True)
@@ -281,7 +276,6 @@ if __name__ == '__main__':
 ║                                                               ║
 ╚═══════════════════════════════════════════════════════════════╝
     """)
-    print("Template folder:", app.template_folder)
     
     # Run Flask app
     app.run(debug=True, host='127.0.0.1', port=5000)

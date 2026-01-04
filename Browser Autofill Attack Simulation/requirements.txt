@@ -9,7 +9,6 @@ Werkzeug==3.0.1
 Jinja2==3.1.2
 
 # Optional but recommended
-python-dotenv==1.0.0  # For environment variables
+python-dotenv==1.0.0
 
 # Note: All other dependencies (HTML/CSS/JS) are loaded from CDN
-# No database required - uses JSON file for simplicity

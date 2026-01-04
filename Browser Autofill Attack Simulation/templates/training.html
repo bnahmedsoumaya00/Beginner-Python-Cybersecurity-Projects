@@ -1,0 +1,675 @@
+{% extends "base.html" %}
+
+{% block title %}Security Training - Autofill Attack Simulator{% endblock %}
+
+{% block extra_css %}
+<style>
+    .training-hero {
+        text-align: center;
+        padding: 3rem 0;
+        background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 217, 255, 0.1));
+        border-radius: 16px;
+        margin-bottom: 3rem;
+    }
+    
+    .module {
+        background: var(--bg-card);
+        border: 1px solid rgba(0, 255, 136, 0.2);
+        border-radius: 16px;
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        transition: var(--transition-normal);
+    }
+    
+    .module:hover {
+        border-color: var(--primary);
+        box-shadow: var(--glow-primary);
+    }
+    
+    .module-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid rgba(0, 255, 136, 0.2);
+    }
+    
+    .module-number {
+        width: 50px;
+        height: 50px;
+        background: var(--primary);
+        color: var(--bg-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+    
+    .module-title {
+        flex: 1;
+        font-size: 1.8rem;
+        color: var(--primary);
+        margin: 0;
+    }
+    
+    .module-duration {
+        background: var(--bg-tertiary);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+    }
+    
+    .module-content h4 {
+        color: var(--primary);
+        margin-top: 1.5rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .module-content p {
+        color: var(--text-secondary);
+        line-height: 1.8;
+        margin-bottom: 1rem;
+    }
+    
+    .module-content ul {
+        color: var(--text-secondary);
+        line-height: 2;
+        margin-left: 2rem;
+    }
+    
+    .example-box {
+        background: var(--bg-tertiary);
+        border-left: 4px solid var(--accent);
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin: 1.5rem 0;
+    }
+    
+    .warning-box {
+        background: rgba(255, 204, 0, 0.1);
+        border-left: 4px solid var(--warning);
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin: 1.5rem 0;
+    }
+    
+    .stats-banner {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        text-align: center;
+        margin: 3rem 0;
+    }
+    
+    .stat-item {
+        background: var(--bg-tertiary);
+        padding: 2rem;
+        border-radius: 12px;
+    }
+    
+    .stat-item h3 {
+        color: var(--primary);
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="training-hero">
+    <h1><i class="fas fa-graduation-cap"></i> Security Awareness Training</h1>
+    <p style="font-size: 1.2rem; color: var(--text-secondary); margin-top: 1rem;">
+        Master the fundamentals of phishing detection and autofill security
+    </p>
+</div>
+
+<div class="stats-banner">
+    <div class="stat-item">
+        <h3>91%</h3>
+        <p style="color: var(--text-secondary); margin: 0;">Of cyber attacks start with phishing</p>
+    </div>
+    <div class="stat-item">
+        <h3>78%</h3>
+        <p style="color: var(--text-secondary); margin: 0;">Of users have autofill enabled</p>
+    </div>
+    <div class="stat-item">
+        <h3>$17.7B</h3>
+        <p style="color: var(--text-secondary); margin: 0;">Lost to phishing scams in 2023</p>
+    </div>
+    <div class="stat-item">
+        <h3>12 sec</h3>
+        <p style="color: var(--text-secondary); margin: 0;">Average time to fall for phishing</p>
+    </div>
+</div>
+
+<!-- MODULE 1 -->
+<div class="module">
+    <div class="module-header">
+        <div class="module-number">1</div>
+        <h2 class="module-title">Introduction to Phishing</h2>
+        <span class="module-duration"><i class="fas fa-clock"></i> 15 minutes</span>
+    </div>
+    
+    <div class="module-content">
+        <h4>What is Phishing?</h4>
+        <p>
+            Phishing is a cyber attack where criminals impersonate legitimate organizations to steal sensitive 
+            information like passwords, credit card numbers, and personal data. Attackers create fake websites, 
+            emails, and messages that look authentic to trick victims into revealing their credentials.
+        </p>
+        
+        <h4>Why Phishing Works</h4>
+        <p>Phishing succeeds because it exploits human psychology rather than technical vulnerabilities:</p>
+        <ul>
+            <li><strong>Trust:</strong> We trust familiar brands and designs</li>
+            <li><strong>Urgency:</strong> "Act now or lose your account!" creates panic</li>
+            <li><strong>Authority:</strong> Messages appearing from bosses or banks command action</li>
+            <li><strong>Familiarity:</strong> Emails look identical to real communications</li>
+            <li><strong>Curiosity:</strong> "You've won a prize!" triggers investigation</li>
+        </ul>
+        
+        <div class="example-box">
+            <h4 style="color: var(--accent); margin-top: 0;">📧 Real-World Example</h4>
+            <p style="margin: 0;">
+                In 2016, phishing emails targeted Gmail users with fake Google login pages. Over 1 million 
+                credentials were stolen before Google blocked the attack. The pages looked identical to 
+                real Google - same logo, colors, and layout.
+            </p>
+        </div>
+        
+        <h4>Types of Phishing Attacks</h4>
+        <ul>
+            <li><strong>Email Phishing:</strong> Mass emails pretending to be from banks, services, etc.</li>
+            <li><strong>Spear Phishing:</strong> Targeted attacks on specific individuals with personalized info</li>
+            <li><strong>Whaling:</strong> Attacks targeting executives and high-value targets</li>
+            <li><strong>Smishing:</strong> Phishing via SMS text messages</li>
+            <li><strong>Vishing:</strong> Voice phishing via phone calls</li>
+        </ul>
+        
+        <h4>Impact on Businesses</h4>
+        <p>
+            Phishing attacks cost businesses an average of $14.8 million per year. Beyond financial loss, 
+            companies face data breaches, regulatory fines, reputation damage, and loss of customer trust.
+        </p>
+    </div>
+</div>
+
+<!-- MODULE 2 -->
+<div class="module">
+    <div class="module-header">
+        <div class="module-number">2</div>
+        <h2 class="module-title">Browser Autofill Risks</h2>
+        <span class="module-duration"><i class="fas fa-clock"></i> 20 minutes</span>
+    </div>
+    
+    <div class="module-content">
+        <h4>How Browser Autofill Works</h4>
+        <p>
+            Modern browsers offer autofill to save time by automatically filling forms with saved information:
+        </p>
+        <ul>
+            <li><strong>Usernames & Passwords:</strong> Stored in browser password manager</li>
+            <li><strong>Personal Information:</strong> Name, address, phone number</li>
+            <li><strong>Payment Data:</strong> Credit card numbers, expiration dates</li>
+            <li><strong>Form Data:</strong> Email addresses, search history</li>
+        </ul>
+        
+        <h4>The Security Vulnerability</h4>
+        <p>
+            Browsers autofill based on simple pattern matching - they look for input fields with names like 
+            "email", "password", "username". Attackers exploit this by creating fake pages with these same 
+            field names. When you visit the fake page, your browser automatically fills in your real credentials!
+        </p>
+        
+        <div class="warning-box">
+            <h4 style="color: var(--warning); margin-top: 0;">⚠️ The Hidden Danger</h4>
+            <p style="margin: 0;">
+                Autofill happens <strong>instantly</strong> when you load the page - you don't even need to 
+                click anything! Attackers can capture your credentials using invisible forms or JavaScript 
+                before you realize what's happening.
+            </p>
+        </div>
+        
+        <h4>Exploitation Techniques</h4>
+        <p>Attackers use several methods to steal autofilled data:</p>
+        <ul>
+            <li><strong>Invisible Fields:</strong> Hidden form fields that autofill but aren't visible</li>
+            <li><strong>JavaScript Capture:</strong> Scripts that read field values immediately on page load</li>
+            <li><strong>Fake Submit Buttons:</strong> Buttons that look real but send data to attackers</li>
+            <li><strong>iFrame Tricks:</strong> Embedding real site login in invisible frame</li>
+        </ul>
+        
+        <div class="example-box">
+            <h4 style="color: var(--accent); margin-top: 0;">💻 Technical Example</h4>
+            <p>Simple JavaScript that captures autofilled data:</p>
+            <code style="display: block; background: var(--bg-primary); padding: 1rem; border-radius: 8px; margin-top: 0.5rem;">
+                &lt;input type="email" name="email" autocomplete="username"&gt;<br>
+                &lt;input type="password" name="password" autocomplete="current-password"&gt;<br>
+                &lt;script&gt;<br>
+                &nbsp;&nbsp;// Captures data 500ms after page loads<br>
+                &nbsp;&nbsp;setTimeout(() => {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;const email = document.querySelector('[name="email"]').value;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;const password = document.querySelector('[name="password"]').value;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;sendToAttacker(email, password);<br>
+                &nbsp;&nbsp;}, 500);<br>
+                &lt;/script&gt;
+            </code>
+        </div>
+        
+        <h4>Browser Security Settings</h4>
+        <p>You can protect yourself by configuring your browser:</p>
+        <ul>
+            <li><strong>Chrome:</strong> Settings → Autofill → Passwords → Disable "Offer to save"</li>
+            <li><strong>Firefox:</strong> Settings → Privacy → Logins and Passwords → Uncheck autofill</li>
+            <li><strong>Safari:</strong> Preferences → AutoFill → Uncheck "User names and passwords"</li>
+            <li><strong>Edge:</strong> Settings → Profiles → Passwords → Disable password saving</li>
+        </ul>
+    </div>
+</div>
+
+<!-- MODULE 3 -->
+<div class="module">
+    <div class="module-header">
+        <div class="module-number">3</div>
+        <h2 class="module-title">Social Engineering Tactics</h2>
+        <span class="module-duration"><i class="fas fa-clock"></i> 25 minutes</span>
+    </div>
+    
+    <div class="module-content">
+        <h4>The Psychology of Deception</h4>
+        <p>
+            Social engineering attacks manipulate human emotions and cognitive biases to bypass security:
+        </p>
+        <ul>
+            <li><strong>Fear:</strong> "Your account will be deleted!"</li>
+            <li><strong>Greed:</strong> "You've won $10,000!"</li>
+            <li><strong>Curiosity:</strong> "See who viewed your profile"</li>
+            <li><strong>Helpfulness:</strong> "Your colleague needs help urgently"</li>
+            <li><strong>Authority:</strong> "CEO requests immediate action"</li>
+        </ul>
+        
+        <h4>Urgency and Fear Tactics</h4>
+        <p>
+            Attackers create artificial time pressure to prevent careful thinking. Common phrases include:
+        </p>
+        <ul>
+            <li>"Unusual activity detected - verify now!"</li>
+            <li>"Account suspended - click within 24 hours"</li>
+            <li>"Payment failed - update immediately"</li>
+            <li>"Security alert - confirm your identity"</li>
+        </ul>
+        
+        <div class="example-box">
+            <h4 style="color: var(--accent); margin-top: 0;">📧 Example Phishing Email</h4>
+            <p style="font-style: italic; color: var(--text-primary); background: var(--bg-primary); padding: 1rem; border-radius: 8px;">
+                "Dear Customer,<br><br>
+                We've detected suspicious activity on your PayPal account. Someone attempted to login 
+                from Russia. Your account has been temporarily locked for security.<br><br>
+                <strong style="color: var(--danger);">Click here within 24 hours to verify your identity 
+                or your account will be permanently closed.</strong><br><br>
+                Thank you,<br>
+                PayPal Security Team"
+            </p>
+            <p style="margin-top: 1rem; margin-bottom: 0;">
+                <strong style="color: var(--warning);">Red Flags:</strong> Creates urgency, threatens 
+                account closure, generic greeting, suspicious link.
+            </p>
+        </div>
+        
+        <h4>Authority Impersonation</h4>
+        <p>
+            Attackers pretend to be authority figures to compel obedience:
+        </p>
+        <ul>
+            <li><strong>Brand Authority:</strong> Impersonating Google, Microsoft, Apple</li>
+            <li><strong>Organizational Authority:</strong> Fake emails from CEO or IT department</li>
+            <li><strong>Government Authority:</strong> Pretending to be IRS, police, court</li>
+            <li><strong>Technical Authority:</strong> Fake "IT support" calls</li>
+        </ul>
+        
+        <h4>Pretexting Techniques</h4>
+        <p>
+            Creating elaborate fake scenarios to gain trust:
+        </p>
+        <ul>
+            <li>Researching target on social media for personalization</li>
+            <li>Using real employee names found on LinkedIn</li>
+            <li>Referencing actual company events or projects</li>
+            <li>Spoofing phone numbers and email addresses</li>
+        </ul>
+        
+        <h4>Defense Strategies</h4>
+        <ul>
+            <li><strong>Slow Down:</strong> Never act immediately on urgent requests</li>
+            <li><strong>Verify Independently:</strong> Contact the organization directly using known numbers</li>
+            <li><strong>Question Authority:</strong> It's okay to verify even from "bosses"</li>
+            <li><strong>Trust Your Instincts:</strong> If something feels off, it probably is</li>
+            <li><strong>Report Suspicious Messages:</strong> Forward to IT or security team</li>
+        </ul>
+    </div>
+</div>
+
+<!-- MODULE 4 -->
+<div class="module">
+    <div class="module-header">
+        <div class="module-number">4</div>
+        <h2 class="module-title">Detection Techniques</h2>
+        <span class="module-duration"><i class="fas fa-clock"></i> 30 minutes</span>
+    </div>
+    
+    <div class="module-content">
+        <h4>URL Analysis</h4>
+        <p>
+            The URL is your first line of defense. Learn to read URLs from right to left:
+        </p>
+        <ul>
+            <li><strong>Real:</strong> https://accounts.google.com/signin</li>
+            <li><strong>Fake:</strong> https://accounts-google.com/signin (missing dot!)</li>
+            <li><strong>Fake:</strong> https://google.com.verify-account.net (real domain is .net)</li>
+            <li><strong>Fake:</strong> https://goog1e.com/signin (number "1" instead of letter "l")</li>
+        </ul>
+        
+        <div class="warning-box">
+            <h4 style="color: var(--warning); margin-top: 0;">🔍 Pro Tip: Read Right to Left</h4>
+            <p style="margin: 0;">
+                In "accounts.google.com", reading right to left: ".com" is the TLD, "google" is the domain, 
+                "accounts" is the subdomain. In "google.com.phishing.net", the real domain is "phishing.net"!
+            </p>
+        </div>
+        
+        <h4>SSL Certificate Verification</h4>
+        <p>Steps to check SSL certificate:</p>
+        <ol style="color: var(--text-secondary); line-height: 2;">
+            <li>Click the padlock icon in the address bar</li>
+            <li>Select "Certificate" or "Connection is secure"</li>
+            <li>Verify the certificate is issued to the correct domain</li>
+            <li>Check the issuing authority (should be known CA like DigiCert, Let's Encrypt)</li>
+            <li>Verify expiration date is current</li>
+        </ol>
+        
+        <h4>Email Header Inspection</h4>
+        <p>Email headers reveal the true sender. Look for:</p>
+        <ul>
+            <li><strong>Return-Path:</strong> Should match the claimed sender domain</li>
+            <li><strong>Received:</strong> Shows the path the email took (look for suspicious servers)</li>
+            <li><strong>SPF/DKIM/DMARC:</strong> Authentication results (PASS is good)</li>
+            <li><strong>Reply-To:</strong> Should match sender, if different it's suspicious</li>
+        </ul>
+        
+        <h4>Design Inconsistencies</h4>
+        <p>Phishing pages often have subtle flaws:</p>
+        <ul>
+            <li>Blurry or pixelated logos</li>
+            <li>Spelling and grammar errors</li>
+            <li>Misaligned elements or broken layouts</li>
+            <li>Missing footer information</li>
+            <li>Unusual fonts or colors</li>
+            <li>Generic placeholder text</li>
+        </ul>
+        
+        <h4>Red Flags Checklist</h4>
+        <div style="background: var(--bg-tertiary); padding: 2rem; border-radius: 12px;">
+            <p style="margin-top: 0;">Before entering credentials, verify ALL of these:</p>
+            <ul style="list-style: none; padding: 0;">
+                <li style="padding: 0.5rem; margin: 0.5rem 0; background: var(--bg-card); border-radius: 6px;">
+                    ☐ URL is exactly correct (no typos, extra characters)
+                </li>
+                <li style="padding: 0.5rem; margin: 0.5rem 0; background: var(--bg-card); border-radius: 6px;">
+                    ☐ SSL certificate is valid and matches domain
+                </li>
+                <li style="padding: 0.5rem; margin: 0.5rem 0; background: var(--bg-card); border-radius: 6px;">
+                    ☐ Design looks professional (no blurry images)
+                </li>
+                <li style="padding: 0.5rem; margin: 0.5rem 0; background: var(--bg-card); border-radius: 6px;">
+                    ☐ No spelling or grammar errors
+                </li>
+                <li style="padding: 0.5rem; margin: 0.5rem 0; background: var(--bg-card); border-radius: 6px;">
+                    ☐ Not feeling rushed or pressured
+                </li>
+                <li style="padding: 0.5rem; margin: 0.5rem 0; background: var(--bg-card); border-radius: 6px;">
+                    ☐ Expected this login request
+                </li>
+                <li style="padding: 0.5rem; margin: 0.5rem 0; background: var(--bg-card); border-radius: 6px;">
+                    ☐ Requesting appropriate information only
+                </li>
+            </ul>
+            <p style="margin-bottom: 0; color: var(--danger); font-weight: bold;">
+                If ANY box is unchecked, DO NOT enter credentials!
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- MODULE 5 -->
+<div class="module">
+    <div class="module-header">
+        <div class="module-number">5</div>
+        <h2 class="module-title">Protection Methods</h2>
+        <span class="module-duration"><i class="fas fa-clock"></i> 25 minutes</span>
+    </div>
+    
+    <div class="module-content">
+        <h4>Password Manager Setup</h4>
+        <p>
+            Password managers provide the best protection because they verify the domain before autofilling. 
+            Recommended options:
+        </p>
+        <ul>
+            <li><strong>1Password:</strong> Cross-platform, family sharing, travel mode</li>
+            <li><strong>Bitwarden:</strong> Open-source, free tier available, self-hosting option</li>
+            <li><strong>LastPass:</strong> User-friendly interface, browser integration</li>
+            <li><strong>Dashlane:</strong> Includes VPN, dark web monitoring</li>
+        </ul>
+        
+        <p><strong>Why password managers help against phishing:</strong></p>
+        <ul>
+            <li>Only autofill on exact domain matches (won't fill on goog1e.com)</li>
+            <li>Generate strong, unique passwords for each site</li>
+            <li>Encrypted storage protects credentials</li>
+            <li>Alert you of weak or reused passwords</li>
+            <li>Notify if credentials found in data breaches</li>
+        </ul>
+        
+        <h4>Two-Factor Authentication (2FA)</h4>
+        <p>
+            Even if phishing steals your password, 2FA provides a second security layer. Methods ranked by security:
+        </p>
+        <ol style="color: var(--text-secondary); line-height: 2;">
+            <li><strong style="color: var(--primary);">Hardware Security Keys (Best):</strong> YubiKey, Google Titan - Physical devices, phishing-resistant</li>
+            <li><strong style="color: var(--primary);">Authenticator Apps (Good):</strong> Google Authenticator, Authy - Time-based codes</li>
+            <li><strong style="color: var(--warning);">SMS Codes (Acceptable):</strong> Better than nothing, but vulnerable to SIM swapping</li>
+            <li><strong style="color: var(--danger);">Email Codes (Weakest):</strong> If email is compromised, 2FA is bypassed</li>
+        </ol>
+        
+        <div class="example-box">
+            <h4 style="color: var(--accent); margin-top: 0;">💡 Enable 2FA On These Accounts</h4>
+            <ul style="margin-bottom: 0;">
+                <li>Email accounts (Gmail, Outlook)</li>
+                <li>Financial services (banks, PayPal)</li>
+                <li>Social media (Facebook, Instagram)</li>
+                <li>Cloud storage (Google Drive, Dropbox)</li>
+                <li>Work accounts (Office 365, Slack)</li>
+                <li>Password manager itself</li>
+                <li>Cryptocurrency exchanges</li>
+            </ul>
+        </div>
+        
+        <h4>Security Software</h4>
+        <p>Additional protection layers:</p>
+        <ul>
+            <li><strong>Antivirus:</strong> Real-time malware and phishing site blocking</li>
+            <li><strong>Browser Extensions:</strong> Netcraft, uBlock Origin for phishing detection</li>
+            <li><strong>DNS Filtering:</strong> Cloudflare 1.1.1.1, Quad9 block malicious sites</li>
+            <li><strong>Email Filters:</strong> Gmail/Outlook have built-in phishing detection</li>
+        </ul>
+        
+        <h4>Incident Response</h4>
+        <p>If you suspect you've been phished:</p>
+        <ol style="color: var(--text-secondary); line-height: 2;">
+            <li><strong>Change Passwords Immediately:</strong> For the affected account and any using the same password</li>
+            <li><strong>Enable 2FA:</strong> If not already active</li>
+            <li><strong>Check Account Activity:</strong> Look for unauthorized logins or changes</li>
+            <li><strong>Contact the Company:</strong> Report the incident to the legitimate organization</li>
+            <li><strong>Monitor Financial Accounts:</strong> Watch for unauthorized transactions</li>
+            <li><strong>Report to Authorities:</strong> File report with IC3.gov or local cybercrime unit</li>
+            <li><strong>Inform Your Organization:</strong> If work-related, notify IT/security team</li>
+        </ol>
+    </div>
+</div>
+
+<!-- MODULE 6 -->
+<div class="module">
+    <div class="module-header">
+        <div class="module-number">6</div>
+        <h2 class="module-title">Advanced Threats</h2>
+        <span class="module-duration"><i class="fas fa-clock"></i> 35 minutes</span>
+    </div>
+    
+    <div class="module-content">
+        <h4>Spear Phishing</h4>
+        <p>
+            Unlike mass phishing, spear phishing targets specific individuals with personalized information. 
+            Attackers research victims on social media, company websites, and LinkedIn to create convincing messages.
+        </p>
+        
+        <div class="example-box">
+            <h4 style="color: var(--accent); margin-top: 0;">🎯 Real Attack Example</h4>
+            <p style="font-style: italic; background: var(--bg-primary); padding: 1rem; border-radius: 8px;">
+                "Hi Sarah,<br><br>
+                I saw your presentation at the AWS Summit last week - great insights on cloud migration! 
+                I'm reaching out because I'm working on a similar project for Acme Corp.<br><br>
+                Could you review this proposal document? [malicious link]<br><br>
+                Thanks,<br>
+                John from TechStart"
+            </p>
+            <p style="margin-bottom: 0;">
+                <strong>Why it works:</strong> References real event, knows victim's name and company, 
+                appears relevant to victim's work.
+            </p>
+        </div>
+        
+        <h4>Whaling Attacks</h4>
+        <p>
+            "Whaling" targets high-value individuals like CEOs, CFOs, and executives. These attacks often 
+            involve business email compromise (BEC) where attackers impersonate executives to authorize 
+            wire transfers or access sensitive data.
+        </p>
+        <ul>
+            <li><strong>CEO Fraud:</strong> Fake urgent emails from "CEO" requesting wire transfer</li>
+            <li><strong>W-2 Scams:</strong> Fake HR requests for employee tax information</li>
+            <li><strong>Vendor Fraud:</strong> Compromised vendor emails with changed payment details</li>
+        </ul>
+        
+        <h4>Business Email Compromise (BEC)</h4>
+        <p>
+            BEC attacks cost businesses over $2.4 billion annually. Common scenarios:
+        </p>
+        <ul>
+            <li><strong>Invoice Fraud:</strong> Fake invoices with attacker's bank details</li>
+            <li><strong>Payroll Diversion:</strong> Requests to change direct deposit information</li>
+            <li><strong>Data Theft:</strong> Requesting W-2s or customer data</li>
+            <li><strong>Attorney Impersonation:</strong> Fake legal requests for confidential info</li>
+        </ul>
+        
+        <div class="warning-box">
+            <h4 style="color: var(--warning); margin-top: 0;">⚠️ Defense: Multi-Step Verification</h4>
+            <p style="margin: 0;">
+                Always verify unusual requests through a second channel. If you receive an email from your 
+                CEO requesting a wire transfer, call their office directly using a known number - don't reply 
+                to the email or use contact info provided in the message!
+            </p>
+        </div>
+        
+        <h4>Man-in-the-Middle Attacks</h4>
+        <p>
+            MITM attacks intercept communication between user and legitimate service:
+        </p>
+        <ul>
+            <li><strong>Public WiFi Attacks:</strong> Fake "Free WiFi" hotspots capture traffic</li>
+            <li><strong>SSL Stripping:</strong> Downgrading HTTPS to HTTP to intercept data</li>
+            <li><strong>DNS Spoofing:</strong> Redirecting legitimate domains to attacker servers</li>
+        </ul>
+        
+        <p><strong>Protection:</strong> Use VPN on public networks, verify HTTPS always active, enable DNS-over-HTTPS</p>
+        
+        <h4>Zero-Day Exploits</h4>
+        <p>
+            Zero-day attacks exploit unknown vulnerabilities before patches are available:
+        </p>
+        <ul>
+            <li><strong>Browser Exploits:</strong> Malicious code executing through browser vulnerabilities</li>
+            <li><strong>Plugin Vulnerabilities:</strong> Compromised browser extensions or plugins</li>
+            <li><strong>Email Client Exploits:</strong> Malware delivered through email reader bugs</li>
+        </ul>
+        
+        <p><strong>Defense Strategy:</strong></p>
+        <ul>
+            <li>Keep all software updated with latest patches</li>
+            <li>Use browser sandboxing features</li>
+            <li>Disable unnecessary plugins</li>
+            <li>Use endpoint detection and response (EDR) tools</li>
+            <li>Implement network segmentation</li>
+        </ul>
+        
+        <h4>Emerging Threats</h4>
+        <ul>
+            <li><strong>AI-Generated Phishing:</strong> ChatGPT creating convincing phishing content</li>
+            <li><strong>Deepfake Voice:</strong> AI-cloned voices in vishing attacks</li>
+            <li><strong>QR Code Phishing:</strong> Malicious QR codes redirecting to fake sites</li>
+            <li><strong>Cryptocurrency Scams:</strong> Fake wallet sites stealing crypto</li>
+        </ul>
+    </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="card" style="background: rgba(0, 255, 136, 0.1); border-color: var(--success);">
+    <h2><i class="fas fa-check-circle"></i> Training Complete!</h2>
+    <p style="font-size: 1.1rem;">
+        You've learned the fundamentals of phishing detection and autofill security. Remember these key takeaways:
+    </p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+        <div style="padding: 1.5rem; background: var(--bg-tertiary); border-left: 4px solid var(--primary); border-radius: 8px;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">🔍 Always Verify</h4>
+            <p style="margin: 0; color: var(--text-secondary);">
+                Check URLs, SSL certificates, and sender addresses before entering credentials
+            </p>
+        </div>
+        
+        <div style="padding: 1.5rem; background: var(--bg-tertiary); border-left: 4px solid var(--primary); border-radius: 8px;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">🛡️ Use Protection</h4>
+            <p style="margin: 0; color: var(--text-secondary);">
+                Password managers and 2FA provide essential security layers
+            </p>
+        </div>
+        
+        <div style="padding: 1.5rem; background: var(--bg-tertiary); border-left: 4px solid var(--primary); border-radius: 8px;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">🧠 Think First</h4>
+            <p style="margin: 0; color: var(--text-secondary);">
+                Attackers rely on urgency - take time to analyze suspicious requests
+            </p>
+        </div>
+        
+        <div style="padding: 1.5rem; background: var(--bg-tertiary); border-left: 4px solid var(--primary); border-radius: 8px;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">📢 Report Quickly</h4>
+            <p style="margin: 0; color: var(--text-secondary);">
+                Inform IT or security team immediately of suspicious activity
+            </p>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 3rem;">
+        <a href="{{ url_for('demo_selector') }}" class="btn btn-primary">
+            <span><i class="fas fa-flask"></i> Try Live Demonstrations</span>
+        </a>
+        <a href="{{ url_for('protection') }}" class="btn btn-secondary" style="margin-left: 1rem;">
+            <span><i class="fas fa-shield"></i> View Protection Guide</span>
+        </a>
+    </div>
+</div>
+{% endblock %}
