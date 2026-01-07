@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Phishing Email Templates{% endblock %}
+{% block content %}
+<h1><i class="fas fa-envelope"></i> Phishing Email Templates</h1>
+
+<div class="card">
+    <h2>📧 Common Phishing Email Patterns</h2>
+    <p>Learn to recognize these malicious email templates used in real attacks.</p>
+</div>
+
+<div class="card">
+    <h3>Template 1: Account Verification</h3>
+    <div style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; color: #333; font-family: Arial;">
+        <p><strong>From:</strong> security@paypa1-support.com</p>
+        <p><strong>Subject:</strong> Verify Your Account Now</p>
+        <hr>
+        <p>Dear Valued Customer,</p>
+        <p>We've detected unusual activity on your PayPal account. To protect your funds, we need you to verify your identity immediately.</p>
+        <p><a href="#" style="background: #0070ba; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Verify Account Now</a></p>
+        <p style="color: red; font-weight: bold;">Failure to verify within 24 hours will result in account suspension.</p>
+        <p>Thank you,<br>PayPal Security Team</p>
+    </div>
+    <div style="margin-top: 1rem; background: var(--bg-tertiary); padding: 1rem; border-radius: 8px;">
+        <h4 style="color: var(--danger);">🚩 Red Flags Identified:</h4>
+        <ul>
+            <li>Typo in domain: "paypa1" (number 1 instead of letter l)</li>
+            <li>Generic greeting: "Dear Valued Customer"</li>
+            <li>Urgency: "24 hours" deadline</li>
+            <li>Threat: "account suspension"</li>
+            <li>Suspicious link</li>
+        </ul>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Template 2: Prize/Reward Scam</h3>
+    <div style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; color: #333; font-family: Arial;">
+        <p><strong>From:</strong> notifications@amazon-rewards.net</p>
+        <p><strong>Subject:</strong> 🎉 Congratulations! You've Won!</p>
+        <hr>
+        <p>Hello,</p>
+        <p>You've been selected to receive a FREE Amazon Gift Card worth $500!</p>
+        <p>As one of our loyal customers, you qualify for this exclusive reward.</p>
+        <p><a href="#" style="background: #ff9900; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Claim Your Reward</a></p>
+        <p style="font-size: 0.9em; color: #666;">This offer expires in 2 hours. Click above to claim before it's gone!</p>
+    </div>
+    <div style="margin-top: 1rem; background: var(--bg-tertiary); padding: 1rem; border-radius: 8px;">
+        <h4 style="color: var(--danger);">🚩 Red Flags Identified:</h4>
+        <ul>
+            <li>Wrong domain: amazon-rewards.net (not amazon.com)</li>
+            <li>"Too good to be true" offer</li>
+            <li>Generic greeting</li>
+            <li>Artificial scarcity: "expires in 2 hours"</li>
+            <li>Unsolicited reward</li>
+        </ul>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Template 3: Invoice/Payment Scam</h3>
+    <div style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; color: #333; font-family: Arial;">
+        <p><strong>From:</strong> billing@service-renewal.com</p>
+        <p><strong>Subject:</strong> Payment Failed - Action Required</p>
+        <hr>
+        <p>Dear Customer,</p>
+        <p>Your recent payment of $89.99 for Netflix Premium has failed.</p>
+        <p>Please update your payment information to avoid service interruption.</p>
+        <table style="width: 100%; border: 1px solid #ddd; margin: 1rem 0;">
+            <tr style="background: #f9f9f9;">
+                <td style="padding: 10px;"><strong>Invoice:</strong></td>
+                <td style="padding: 10px;">#NF-8472-2024</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px;"><strong>Amount:</strong></td>
+                <td style="padding: 10px;">$89.99</td>
+            </tr>
+            <tr style="background: #f9f9f9;">
+                <td style="padding: 10px;"><strong>Status:</strong></td>
+                <td style="padding: 10px; color: red;">FAILED</td>
+            </tr>
+        </table>
+        <p><a href="#" style="background: #e50914; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Update Payment Method</a></p>
+    </div>
+    <div style="margin-top: 1rem; background: var(--bg-tertiary); padding: 1rem; border-radius: 8px;">
+        <h4 style="color: var(--danger);">🚩 Red Flags Identified:</h4>
+        <ul>
+            <li>Wrong domain: service-renewal.com (not netflix.com)</li>
+            <li>Unexpected payment failure</li>
+            <li>Generic customer greeting</li>
+            <li>Professional-looking invoice (builds trust)</li>
+            <li>Creates urgency: "avoid service interruption"</li>
+        </ul>
+    </div>
+</div>
+
+<div class="card" style="background: rgba(0, 255, 136, 0.1); border-color: var(--success);">
+    <h2><i class="fas fa-shield-alt"></i> How to Verify Legitimate Emails</h2>
+    <ol style="line-height: 2; color: var(--text-secondary);">
+        <li><strong>Check sender domain carefully</strong> - Look for typos or extra characters</li>
+        <li><strong>Hover over links</strong> - See real destination before clicking</li>
+        <li><strong>Go directly to the website</strong> - Type URL yourself instead of clicking</li>
+        <li><strong>Look for personalization</strong> - Real companies use your name</li>
+        <li><strong>Check for grammar errors</strong> - Professional companies proofread</li>
+        <li><strong>Verify unexpected requests</strong> - Call the company using official numbers</li>
+        <li><strong>Don't trust urgency</strong> - Legitimate companies give reasonable time</li>
+    </ol>
+</div>
+{% endblock %}

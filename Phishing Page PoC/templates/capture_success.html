@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="text-align: center; padding: 4rem 0;">
+    <div style="font-size: 6rem; margin-bottom: 2rem;">⚠️</div>
+    <h1 style="color: var(--danger);">Your Credentials Were Just Captured!</h1>
+    
+    <div class="card" style="max-width: 800px; margin: 2rem auto; text-align: left;">
+        <h2>What Just Happened?</h2>
+        <ol style="color: var(--text-secondary); line-height: 2;">
+            <li>Your browser autofilled saved credentials</li>
+            <li>You submitted the form (or JavaScript captured them silently)</li>
+            <li>The fake page sent your data to attackers</li>
+            <li><strong style="color: var(--danger);">You would now be redirected to the REAL site</strong></li>
+        </ol>
+        
+        <div style="background: rgba(255, 204, 0, 0.1); border: 1px solid var(--warning); padding: 1.5rem; border-radius: 12px; margin: 2rem 0;">
+            <h3 style="color: var(--warning); margin-top: 0;">🎭 The Redirect Trick</h3>
+            <p style="margin: 0;">
+                In a real attack, you'd be seamlessly redirected to 
+                <code>{{ session.get('redirect_url', 'the legitimate site') }}</code>
+                and everything would appear normal. You might even log in again successfully, 
+                never knowing your credentials were stolen!
+            </p>
+        </div>
+        
+        <h3 class="mt-3">Why This Works:</h3>
+        <ul style="color: var(--text-secondary); line-height: 2;">
+            <li><strong>No Error:</strong> The redirect makes everything seem normal</li>
+            <li><strong>Real Site:</strong> You end up on the legitimate page</li>
+            <li><strong>Second Login:</strong> You think the first one "timed out"</li>
+            <li><strong>No Suspicion:</strong> Victims rarely report because nothing seems wrong</li>
+        </ul>
+        
+        <h3 class="mt-3">Protect Yourself:</h3>
+        <ul style="color: var(--text-secondary); line-height: 2;">
+            <li>Always verify URLs BEFORE entering credentials</li>
+            <li>Use password managers that verify domains</li>
+            <li>Enable two-factor authentication</li>
+            <li>Be suspicious of unexpected login requests</li>
+        </ul>
+    </div>
+    
+    <!-- Educational Redirect Demo -->
+    <div class="card" style="max-width: 800px; margin: 2rem auto; background: rgba(0, 217, 255, 0.1); border-color: var(--accent);">
+        <h3 style="color: var(--accent);">🎓 Educational Redirect Demo</h3>
+        <p>In a real attack, you would be automatically redirected to:</p>
+        <p style="font-size: 1.2rem; font-family: var(--font-mono); color: var(--primary);">
+            {{ session.get('redirect_url', 'https://legitimate-site.com') }}
+        </p>
+        <p><strong>Click below to see how seamless this would be:</strong></p>
+        <a href="{{ session.get('redirect_url', 'https://www.google.com') }}" 
+           target="_blank" 
+           class="btn btn-secondary">
+            <span>🔗 Experience the Redirect (Opens Real Site)</span>
+        </a>
+        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">
+            (Don't worry - this opens the REAL site in a new tab for demonstration)
+        </p>
+    </div>
+    
+    <div style="text-align: center; margin-top: 3rem;">
+        <h3 style="color: var(--primary); margin-bottom: 1.5rem;">What Would You Like to Do Next?</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; max-width: 1000px; margin: 0 auto;">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary">
+                <span><i class="fas fa-chart-line"></i> View Dashboard</span>
+            </a>
+            <a href="{{ url_for('demo_selector') }}" class="btn btn-secondary">
+                <span><i class="fas fa-flask"></i> Try Another Demo</span>
+            </a>
+            <a href="{{ url_for('quiz') }}" class="btn btn-secondary">
+                <span><i class="fas fa-question-circle"></i> Test Your Knowledge</span>
+            </a>
+            <a href="{{ url_for('protection') }}" class="btn btn-secondary">
+                <span><i class="fas fa-shield-alt"></i> Learn Protection</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

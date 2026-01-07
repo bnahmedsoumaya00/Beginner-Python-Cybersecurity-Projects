@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Educational Warning - Acknowledgment Required{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 4rem 0;">
+    <div style="font-size: 5rem; margin-bottom: 2rem; animation: pulse 2s infinite;">⚠️</div>
+    <h1 style="color: var(--danger);">Educational Warning</h1>
+    <p style="font-size: 1.3rem; margin: 2rem 0;">You must acknowledge the following before proceeding</p>
+</div>
+
+<div class="card" style="max-width: 900px; margin: 0 auto; background: rgba(255, 51, 102, 0.1); border-color: var(--danger);">
+    <h2 style="color: var(--danger);">⚠️ Critical Legal Information</h2>
+    
+    <div style="background: var(--bg-tertiary); padding: 2rem; border-radius: 12px; margin: 2rem 0;">
+        <h3 style="color: var(--warning);">This Tool is for EDUCATIONAL PURPOSES ONLY</h3>
+        <p style="color: var(--text-secondary); line-height: 1.8;">
+            This application demonstrates security vulnerabilities for training and awareness purposes. 
+            Misuse of this tool is illegal and unethical.
+        </p>
+    </div>
+    
+    <div style="background: var(--bg-tertiary); padding: 2rem; border-radius: 12px; margin: 2rem 0;">
+        <h3 style="color: var(--danger);">❌ Illegal Uses (Punishable by Law):</h3>
+        <ul style="color: var(--text-secondary); line-height: 2;">
+            <li>Deploying this publicly or on any network</li>
+            <li>Using this to conduct actual phishing attacks</li>
+            <li>Capturing real user credentials without consent</li>
+            <li>Sharing captured data with anyone</li>
+            <li>Any unauthorized access to computer systems</li>
+        </ul>
+    </div>
+    
+    <div style="background: var(--bg-tertiary); padding: 2rem; border-radius: 12px; margin: 2rem 0;">
+        <h3 style="color: var(--success);">✅ Legal Uses:</h3>
+        <ul style="color: var(--text-secondary); line-height: 2;">
+            <li>Running locally on your own machine for learning</li>
+            <li>Educational demonstrations in controlled environments</li>
+            <li>Authorized security awareness training</li>
+            <li>Understanding vulnerabilities to protect yourself</li>
+        </ul>
+    </div>
+    
+    <form method="POST" action="{{ url_for('acknowledge_educational') }}" style="margin-top: 3rem;">
+        <h3 style="color: var(--primary); margin-bottom: 2rem;">Required Acknowledgments:</h3>
+        
+        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+            <label style="display: flex; align-items: flex-start; gap: 1rem; cursor: pointer; color: var(--text-primary);">
+                <input type="checkbox" name="educational_use" style="margin-top: 0.3rem; width: 20px; height: 20px; cursor: pointer;">
+                <span>I understand this tool is for <strong>educational purposes only</strong></span>
+            </label>
+        </div>
+        
+        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+            <label style="display: flex; align-items: flex-start; gap: 1rem; cursor: pointer; color: var(--text-primary);">
+                <input type="checkbox" name="local_only" style="margin-top: 0.3rem; width: 20px; height: 20px; cursor: pointer;">
+                <span>I will <strong>ONLY run this locally</strong> and never deploy it publicly</span>
+            </label>
+        </div>
+        
+        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+            <label style="display: flex; align-items: flex-start; gap: 1rem; cursor: pointer; color: var(--text-primary);">
+                <input type="checkbox" name="no_phishing" style="margin-top: 0.3rem; width: 20px; height: 20px; cursor: pointer;">
+                <span>I will <strong>NEVER use this for actual phishing</strong> or to harm others</span>
+            </label>
+        </div>
+        
+        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+            <label style="display: flex; align-items: flex-start; gap: 1rem; cursor: pointer; color: var(--text-primary);">
+                <input type="checkbox" name="understand_illegal" style="margin-top: 0.3rem; width: 20px; height: 20px; cursor: pointer;">
+                <span>I understand that <strong>misuse is illegal</strong> and can result in criminal prosecution</span>
+            </label>
+        </div>
+        
+        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+            <label style="display: flex; align-items: flex-start; gap: 1rem; cursor: pointer; color: var(--text-primary);">
+                <input type="checkbox" name="accept_responsibility" style="margin-top: 0.3rem; width: 20px; height: 20px; cursor: pointer;">
+                <span>I <strong>accept full responsibility</strong> for how I use this tool</span>
+            </label>
+        </div>
+        
+        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+            <label style="display: flex; align-items: flex-start; gap: 1rem; cursor: pointer; color: var(--text-primary);">
+                <input type="checkbox" name="protect_not_harm" style="margin-top: 0.3rem; width: 20px; height: 20px; cursor: pointer;">
+                <span>My goal is to <strong>learn to protect</strong>, not to harm</span>
+            </label>
+        </div>
+        
+        <div style="text-align: center;">
+            <button type="submit" class="btn btn-primary" style="font-size: 1.2rem; padding: 1.5rem 3rem;">
+                <span>I Acknowledge and Agree</span>
+            </button>
+        </div>
+    </form>
+    
+    <div style="margin-top: 2rem; padding: 1rem; background: rgba(255, 204, 0, 0.1); border-radius: 8px; text-align: center;">
+        <p style="color: var(--warning); margin: 0;">
+            <strong>Note:</strong> By proceeding, you affirm that you understand and will comply with all applicable laws.
+        </p>
+    </div>
+</div>
+
+<style>
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+}
+</style>
+{% endblock %}

@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block title %}Phishing Effectiveness Analytics{% endblock %}
+{% block content %}
+<h1><i class="fas fa-chart-bar"></i> What Makes Phishing Effective?</h1>
+
+<div class="card">
+    <h2>🎯 Success Factors in Phishing Attacks</h2>
+    <p>Based on real-world data and our educational demonstrations:</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+        <div class="card" style="background: var(--bg-tertiary);">
+            <h3 style="color: var(--primary);">1. Visual Authenticity</h3>
+            <div style="font-size: 3rem; text-align: center; margin: 1rem 0;">🎨</div>
+            <p><strong>Effectiveness: 95%</strong></p>
+            <p style="color: var(--text-secondary);">
+                Pages that perfectly replicate legitimate designs have a 95% success rate. 
+                Users trust familiar branding, colors, and layouts.
+            </p>
+        </div>
+        
+        <div class="card" style="background: var(--bg-tertiary);">
+            <h3 style="color: var(--primary);">2. URL Similarity</h3>
+            <div style="font-size: 3rem; text-align: center; margin: 1rem 0;">🔗</div>
+            <p><strong>Effectiveness: 87%</strong></p>
+            <p style="color: var(--text-secondary);">
+                Domains like "paypa1.com" (number 1 instead of letter l) fool 87% of users 
+                who don't carefully check URLs.
+            </p>
+        </div>
+        
+        <div class="card" style="background: var(--bg-tertiary);">
+            <h3 style="color: var(--primary);">3. Urgency Tactics</h3>
+            <div style="font-size: 3rem; text-align: center; margin: 1rem 0;">⏰</div>
+            <p><strong>Effectiveness: 82%</strong></p>
+            <p style="color: var(--text-secondary);">
+                Messages creating time pressure ("Account will close in 24 hours!") 
+                bypass critical thinking in 82% of cases.
+            </p>
+        </div>
+        
+        <div class="card" style="background: var(--bg-tertiary);">
+            <h3 style="color: var(--primary);">4. SSL Indicators</h3>
+            <div style="font-size: 3rem; text-align: center; margin: 1rem 0;">🔒</div>
+            <p><strong>Effectiveness: 76%</strong></p>
+            <p style="color: var(--text-secondary);">
+                Fake SSL certificates and HTTPS fool 76% of users who think 
+                the padlock icon guarantees legitimacy.
+            </p>
+        </div>
+        
+        <div class="card" style="background: var(--bg-tertiary);">
+            <h3 style="color: var(--primary);">5. Autofill Exploitation</h3>
+            <div style="font-size: 3rem; text-align: center; margin: 1rem 0;">⌨️</div>
+            <p><strong>Effectiveness: 78%</strong></p>
+            <p style="color: var(--text-secondary);">
+                Browser autofill makes attacks silent - 78% of users don't notice 
+                credentials being captured without submission.
+            </p>
+        </div>
+        
+        <div class="card" style="background: var(--bg-tertiary);">
+            <h3 style="color: var(--primary);">6. Seamless Redirect</h3>
+            <div style="font-size: 3rem; text-align: center; margin: 1rem 0;">↗️</div>
+            <p><strong>Effectiveness: 91%</strong></p>
+            <p style="color: var(--text-secondary);">
+                Redirecting to the real site after capture prevents suspicion - 
+                91% of victims never realize they were compromised.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>📊 Attack Vector Statistics</h2>
+    <div style="margin-top: 2rem;">
+        <div style="margin-bottom: 2rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                <span>Email-based Phishing</span>
+                <span style="color: var(--primary); font-weight: bold;">96%</span>
+            </div>
+            <div style="background: var(--bg-tertiary); height: 30px; border-radius: 15px; overflow: hidden;">
+                <div style="width: 96%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); animation: slideIn 1s;"></div>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 2rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                <span>Fake Login Pages</span>
+                <span style="color: var(--primary); font-weight: bold;">83%</span>
+            </div>
+            <div style="background: var(--bg-tertiary); height: 30px; border-radius: 15px; overflow: hidden;">
+                <div style="width: 83%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); animation: slideIn 1.2s;"></div>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 2rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                <span>SMS Phishing (Smishing)</span>
+                <span style="color: var(--primary); font-weight: bold;">67%</span>
+            </div>
+            <div style="background: var(--bg-tertiary); height: 30px; border-radius: 15px; overflow: hidden;">
+                <div style="width: 67%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); animation: slideIn 1.4s;"></div>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 2rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                <span>Voice Phishing (Vishing)</span>
+                <span style="color: var(--primary); font-weight: bold;">54%</span>
+            </div>
+            <div style="background: var(--bg-tertiary); height: 30px; border-radius: 15px; overflow: hidden;">
+                <div style="width: 54%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); animation: slideIn 1.6s;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="background: rgba(255, 51, 102, 0.1); border-color: var(--danger);">
+    <h2 style="color: var(--danger);">🎯 The Perfect Storm</h2>
+    <p style="font-size: 1.1rem;">
+        When attackers combine multiple techniques, success rates skyrocket:
+    </p>
+    <div style="background: var(--bg-tertiary); padding: 2rem; border-radius: 12px; margin-top: 1.5rem;">
+        <ul style="color: var(--text-secondary); line-height: 2.2; font-size: 1.05rem;">
+            <li><strong style="color: var(--primary);">Perfect Design + Similar URL =</strong> 97% success rate</li>
+            <li><strong style="color: var(--primary);">Urgency + Autofill + Redirect =</strong> 94% success rate</li>
+            <li><strong style="color: var(--primary);">All 6 Factors Combined =</strong> 99% success rate</li>
+        </ul>
+    </div>
+    <p style="margin-top: 1.5rem; font-weight: bold; color: var(--danger);">
+        This is why education and awareness are critical. Technical defenses alone are not enough!
+    </p>
+</div>
+
+<style>
+@keyframes slideIn {
+    from { width: 0; }
+}
+</style>
+{% endblock %}

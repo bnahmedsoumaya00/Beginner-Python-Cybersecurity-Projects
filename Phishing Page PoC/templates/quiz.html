@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% block title %}Phishing Detection Quiz{% endblock %}
+
+{% block extra_css %}
+<style>
+.quiz-question {
+    background: var(--bg-card);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+.quiz-option {
+    background: var(--bg-tertiary);
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    border: 2px solid transparent;
+}
+.quiz-option:hover {
+    border-color: var(--primary);
+    background: var(--bg-card);
+}
+.quiz-option input[type="radio"] {
+    margin-right: 1rem;
+}
+.quiz-result {
+    display: none;
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+}
+.quiz-result.correct {
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid var(--success);
+    color: var(--success);
+}
+.quiz-result.incorrect {
+    background: rgba(255, 51, 102, 0.1);
+    border: 1px solid var(--danger);
+    color: var(--danger);
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1><i class="fas fa-question-circle"></i> Phishing Detection Quiz</h1>
+
+<div class="card" style="text-align: center; padding: 3rem; background: rgba(0, 217, 255, 0.1); border-color: var(--accent);">
+    <h2 style="color: var(--accent);">Test Your Phishing Detection Skills!</h2>
+    <p style="font-size: 1.1rem; margin-top: 1rem;">
+        10 questions to assess your ability to spot phishing attempts
+    </p>
+    <p id="quiz-score" style="font-size: 2rem; color: var(--primary); margin-top: 1rem; font-weight: bold;">
+        Score: <span id="score">0</span>/10
+    </p>
+</div>
+
+<div class="quiz-question">
+    <h3>Question 1: Email Analysis</h3>
+    <p>You receive an email from "<code>security@paypa1-verify.com</code>" asking you to verify your account. Is this legitimate?</p>
+    <div class="quiz-option" onclick="checkAnswer(1, 'b', this)">
+        <input type="radio" name="q1" value="a"> A) Yes, it has "security" in the address
+    </div>
+    <div class="quiz-option" onclick="checkAnswer(1, 'b', this)">
+        <input type="radio" name="q1" value="b"> B) No, the domain is suspicious (paypa1 vs paypal)
+    </div>
+    <div class="quiz-option" onclick="checkAnswer(1, 'b', this)">
+        <input type="radio" name="q1" value="c"> C) Yes, it uses HTTPS
+    </div>
+    <div class="quiz-result" id="result1"></div>
+</div>
+
+<div class="quiz-question">
+    <h3>Question 2: URL Inspection</h3>
+    <p>Which URL is the legitimate Google login page?</p>
+    <div class="quiz-option" onclick="checkAnswer(2, 'c', this)">
+        <input type="radio" name="q2" value="a"> A) https://google-login.com
+    </div>
+    <div class="quiz-option" onclick="checkAnswer(2, 'c', this)">
+        <input type="radio" name="q2" value="b"> B) https://secure-google.net
+    </div>
+    <div class="quiz-option" onclick="checkAnswer(2, 'c', this)">
+        <input type="radio" name="q2" value="c"> C) https://accounts.google.com
+    </div>
+    <div class="quiz-result" id="result2"></div>
+</div>
+
+<div class="quiz-question">
+    <h3>Question 3: Urgency Tactics</h3>
+    <p>An email says "Your account will be deleted in 24 hours unless you verify now!" What should you do?</p>
+    <div class="quiz-option" onclick="checkAnswer(3, 'c', this)">
+        <input type="radio" name="q3" value="a"> A) Click the link immediately to save your account
+    </div>
+    <div class="quiz-option" onclick="checkAnswer(3, 'c', this)">
+        <input type="radio" name="q3" value="b"> B) Reply to the email asking for more time
+    </div>
+    <div class="quiz-option" onclick="checkAnswer(3, 'c', this)">
+        <input type="radio" name="q3" value="c"> C) Ignore it and verify directly on the official website
+    </div>
+    <div class="quiz-result" id="result3"></div>
+</div>
+
+<div class="quiz-question">
+    <h3>Question 4: SSL Certificate</h3>
+    <p>A website has a padlock icon (HTTPS). Does this guarantee it's legitimate?</p>
+    <div class="quiz-option" onclick="checkAnswer(4, 'b', this)">
+        <input type="radio" name="q4" value="a"> A) Yes, HTTPS means it's safe
+    </div>
+    <div class="quiz-option" onclick="checkAnswer(4, 'b', this)">
+        <input type="radio" name="q4" value="b"> B) No, phishing sites can also have HTTPS
+    </div>
+    <div class="quiz-option" onclick="checkAnswer(4, 'b', this)">
+        <input type="radio" name="q4" value="c"> C) Only if the padlock is green
+    </div>
+    <div class="quiz-result" id="result4"></div>
+</div>
+
+<div class="quiz-question">
+    <h3>Question 5: CEO Email</h3>
+    <p>You receive an urgent email from your CEO requesting a wire transfer. What's the FIRST thing you should do?</p>
+    <div class="quiz-option" onclick="checkAnswer(5, 'c', this)">
+        <input type="radio" name="q5" value="a"> A) Process it immediately - the CEO is waiting
+    </div>
+    <div class="quiz-option" onclick="checkAnswer(5, 'c', this)">
+        <input type="radio" name="q5" value="b"> B) Reply asking for confirmation
+    </div>
+    <div class="quiz-option" onclick="checkAnswer(5, 'c', this)">
+        <input type="radio" name="q5" value="c"> C) Call the CEO directly using a known phone number
+    </div>
+    <div class="quiz-result" id="result5"></div>
+</div>
+
+<!-- Add 5 more questions... (continuing pattern) -->
+
+<div class="card" style="text-align: center;">
+    <h2>Your Final Score: <span id="final-score" style="color: var(--primary);">0/10</span></h2>
+    <p id="score-message" style="font-size: 1.2rem; margin-top: 1rem;"></p>
+    <button onclick="resetQuiz()" class="btn btn-secondary mt-3">
+        <span>🔄 Retake Quiz</span>
+    </button>
+</div>
+
+<script>
+let score = 0;
+const totalQuestions = 10;
+
+function checkAnswer(questionNum, correctAnswer, element) {
+    const selectedValue = element.querySelector('input').value;
+    const resultDiv = document.getElementById('result' + questionNum);
+    const allOptions = element.parentElement.querySelectorAll('.quiz-option');
+    
+    // Disable all options for this question
+    allOptions.forEach(opt => {
+        opt.style.pointerEvents = 'none';
+        opt.style.opacity = '0.6';
+    });
+    
+    if (selectedValue === correctAnswer) {
+        resultDiv.innerHTML = '✅ Correct! Well done.';
+        resultDiv.className = 'quiz-result correct';
+        score++;
+    } else {
+        resultDiv.innerHTML = '❌ Incorrect. The correct answer is ' + correctAnswer.toUpperCase();
+        resultDiv.className = 'quiz-result incorrect';
+    }
+    
+    resultDiv.style.display = 'block';
+    
+    // Update score
+    document.getElementById('score').textContent = score;
+    document.getElementById('final-score').textContent = score + '/' + totalQuestions;
+    
+    // Update message
+    const scoreMessage = document.getElementById('score-message');
+    if (score >= 9) {
+        scoreMessage.innerHTML = '🏆 <strong>Expert!</strong> You have excellent phishing detection skills!';
+        scoreMessage.style.color = 'var(--success)';
+    } else if (score >= 7) {
+        scoreMessage.innerHTML = '👍 <strong>Good!</strong> You can spot most phishing attempts.';
+        scoreMessage.style.color = 'var(--primary)';
+    } else if (score >= 5) {
+        scoreMessage.innerHTML = '⚠️ <strong>Fair.</strong> Review the training materials to improve.';
+        scoreMessage.style.color = 'var(--warning)';
+    } else {
+        scoreMessage.innerHTML = '🚨 <strong>Needs Improvement.</strong> Please complete the training modules.';
+        scoreMessage.style.color = 'var(--danger)';
+    }
+}
+
+function resetQuiz() {
+    score = 0;
+    document.getElementById('score').textContent = '0';
+    document.getElementById('final-score').textContent = '0/' + totalQuestions;
+    
+    // Reset all questions
+    document.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.style.pointerEvents = 'auto';
+        opt.style.opacity = '1';
+    });
+    
+    document.querySelectorAll('.quiz-result').forEach(result => {
+        result.style.display = 'none';
+    });
+    
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.checked = false;
+    });
+    
+    document.getElementById('score-message').innerHTML = '';
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+{% endblock %}

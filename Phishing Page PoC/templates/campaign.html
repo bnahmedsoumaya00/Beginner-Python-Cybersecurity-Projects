@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% block title %}Phishing Campaign Simulator{% endblock %}
+
+{% block extra_css %}
+<style>
+.campaign-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: var(--transition-normal);
+}
+.campaign-card:hover {
+    border-color: var(--primary);
+    box-shadow: var(--glow-primary);
+}
+.scenario-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+.difficulty-easy { background: rgba(0, 255, 136, 0.2); color: var(--success); }
+.difficulty-medium { background: rgba(255, 204, 0, 0.2); color: var(--warning); }
+.difficulty-hard { background: rgba(255, 51, 102, 0.2); color: var(--danger); }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1><i class="fas fa-bullhorn"></i> Phishing Campaign Simulator</h1>
+
+<div class="card" style="background: rgba(0, 217, 255, 0.1); border-color: var(--accent); text-align: center; padding: 2rem;">
+    <h2 style="color: var(--accent);">🎯 Simulate Real-World Phishing Campaigns</h2>
+    <p style="font-size: 1.1rem; margin-top: 1rem;">
+        Experience different phishing scenarios to understand how attackers target victims
+    </p>
+</div>
+
+<div class="campaign-card">
+    <span class="scenario-badge difficulty-easy">EASY - Social Media</span>
+    <h2>📱 Scenario 1: Facebook Account Security Alert</h2>
+    
+    <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; font-family: var(--font-mono); font-size: 0.95rem;">
+        <p style="margin-bottom: 1rem;"><strong>FROM:</strong> security@facebookmail.com</p>
+        <p style="margin-bottom: 1rem;"><strong>SUBJECT:</strong> Unusual Login Activity Detected</p>
+        <div style="background: var(--bg-primary); padding: 1rem; border-radius: 8px;">
+            <p>Dear User,</p>
+            <p>We detected an unusual login to your Facebook account from Russia.</p>
+            <p style="color: var(--danger); font-weight: bold;">Click here to secure your account immediately: [FAKE LINK]</p>
+            <p>If this wasn't you, your account will be locked in 24 hours.</p>
+        </div>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div>
+            <h4 style="color: var(--danger);">🚩 Red Flags:</h4>
+            <ul style="color: var(--text-secondary); line-height: 2;">
+                <li>Generic greeting ("Dear User")</li>
+                <li>Creates urgency (24 hours)</li>
+                <li>Suspicious email domain</li>
+                <li>Threat of account lock</li>
+            </ul>
+        </div>
+        <div>
+            <h4 style="color: var(--success);">✅ Protection:</h4>
+            <ul style="color: var(--text-secondary); line-height: 2;">
+                <li>Go directly to Facebook.com</li>
+                <li>Check notifications there</li>
+                <li>Never click email links</li>
+                <li>Enable 2FA</li>
+            </ul>
+        </div>
+    </div>
+    
+    <a href="{{ url_for('demo_platform', platform='facebook') }}" class="btn btn-danger mt-3">
+        <span>🎭 Experience This Attack</span>
+    </a>
+</div>
+
+<div class="campaign-card">
+    <span class="scenario-badge difficulty-medium">MEDIUM - Corporate</span>
+    <h2>💼 Scenario 2: IT Department Password Reset</h2>
+    
+    <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; font-family: var(--font-mono); font-size: 0.95rem;">
+        <p style="margin-bottom: 1rem;"><strong>FROM:</strong> it-support@yourcompany.com</p>
+        <p style="margin-bottom: 1rem;"><strong>SUBJECT:</strong> Mandatory Security Update - Action Required</p>
+        <div style="background: var(--bg-primary); padding: 1rem; border-radius: 8px;">
+            <p>Hello [Your Name],</p>
+            <p>As part of our security audit, all employees must reset their passwords by EOD.</p>
+            <p style="color: var(--warning); font-weight: bold;">Click here to update your credentials: [FAKE LINK]</p>
+            <p>Failure to comply will result in account suspension.</p>
+            <p>- IT Security Team</p>
+        </div>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div>
+            <h4 style="color: var(--danger);">🚩 Red Flags:</h4>
+            <ul style="color: var(--text-secondary); line-height: 2;">
+                <li>Unexpected security update</li>
+                <li>Deadline pressure (EOD)</li>
+                <li>Threat of suspension</li>
+                <li>Generic IT signature</li>
+            </ul>
+        </div>
+        <div>
+            <h4 style="color: var(--success);">✅ Protection:</h4>
+            <ul style="color: var(--text-secondary); line-height: 2;">
+                <li>Call IT directly to verify</li>
+                <li>Check company portal</li>
+                <li>Look for spelling errors</li>
+                <li>Verify sender email carefully</li>
+            </ul>
+        </div>
+    </div>
+    
+    <a href="{{ url_for('demo_platform', platform='github') }}" class="btn btn-danger mt-3">
+        <span>🎭 Experience This Attack</span>
+    </a>
+</div>
+
+<div class="campaign-card">
+    <span class="scenario-badge difficulty-hard">HARD - Spear Phishing</span>
+    <h2>🎯 Scenario 3: CEO Whaling Attack</h2>
+    
+    <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; font-family: var(--font-mono); font-size: 0.95rem;">
+        <p style="margin-bottom: 1rem;"><strong>FROM:</strong> ceo@yourcompany.com</p>
+        <p style="margin-bottom: 1rem;"><strong>SUBJECT:</strong> Confidential - Wire Transfer Needed</p>
+        <div style="background: var(--bg-primary); padding: 1rem; border-radius: 8px;">
+            <p>Hi Sarah,</p>
+            <p>I'm in a meeting with investors and need you to process an urgent wire transfer.</p>
+            <p>Amount: $47,500 to our legal counsel for the acquisition deal.</p>
+            <p style="color: var(--danger); font-weight: bold;">Login here to authorize: [FAKE BANKING LINK]</p>
+            <p>This is time-sensitive - please handle ASAP. Don't mention this to anyone yet.</p>
+            <p>Thanks,<br>John (CEO)</p>
+        </div>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div>
+            <h4 style="color: var(--danger);">🚩 Red Flags:</h4>
+            <ul style="color: var(--text-secondary); line-height: 2;">
+                <li>Extreme urgency</li>
+                <li>Confidentiality request</li>
+                <li>Large money transfer</li>
+                <li>Unusual communication method</li>
+                <li>Bypassing normal procedures</li>
+            </ul>
+        </div>
+        <div>
+            <h4 style="color: var(--success);">✅ Protection:</h4>
+            <ul style="color: var(--text-secondary); line-height: 2;">
+                <li>Verify via phone call</li>
+                <li>Check email headers</li>
+                <li>Follow company procedures</li>
+                <li>Never bypass approvals</li>
+                <li>Report to security</li>
+            </ul>
+        </div>
+    </div>
+    
+    <a href="{{ url_for('demo_platform', platform='banking') }}" class="btn btn-danger mt-3">
+        <span>🎭 Experience This Attack</span>
+    </a>
+</div>
+
+<div class="card" style="background: rgba(0, 255, 136, 0.1); border-color: var(--success);">
+    <h2><i class="fas fa-graduation-cap"></i> Campaign Best Practices</h2>
+    
+    <h3 style="color: var(--primary); margin-top: 1.5rem;">For Organizations Running Simulations:</h3>
+    <ul style="color: var(--text-secondary); line-height: 2;">
+        <li><strong>Get Authorization:</strong> Written approval from management</li>
+        <li><strong>Inform HR:</strong> Coordinate with human resources</li>
+        <li><strong>Educational Follow-up:</strong> Provide training after tests</li>
+        <li><strong>No Punishment:</strong> Focus on education, not penalties</li>
+        <li><strong>Track Progress:</strong> Measure improvement over time</li>
+        <li><strong>Vary Scenarios:</strong> Test different attack vectors</li>
+    </ul>
+    
+    <h3 style="color: var(--primary); margin-top: 1.5rem;">Ethical Guidelines:</h3>
+    <ul style="color: var(--text-secondary); line-height: 2;">
+        <li>Never capture real credentials</li>
+        <li>Always disclose it's a test after</li>
+        <li>Provide resources for learning</li>
+        <li>Respect privacy and dignity</li>
+        <li>Use authorized tools only</li>
+    </ul>
+</div>
+{% endblock %}

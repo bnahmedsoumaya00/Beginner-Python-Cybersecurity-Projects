@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics Dashboard{% endblock %}
+
+{% block extra_css %}
+<style>
+.dashboard-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;margin:2rem 0;}
+.stat-card{background:var(--bg-card);padding:2rem;border-radius:16px;text-align:center;border:1px solid rgba(0,255,136,0.2);transition:var(--transition-normal);}
+.stat-card:hover{transform:translateY(-4px);border-color:var(--primary);box-shadow:var(--glow-primary);}
+.stat-number{font-size:3rem;font-weight:900;color:var(--primary);display:block;text-shadow:var(--glow-primary);}
+.stat-label{color:var(--text-secondary);font-size:0.95rem;margin-top:0.5rem;}
+table{width:100%;border-collapse:collapse;margin-top:2rem;}
+thead{background:var(--bg-tertiary);}
+th{padding:1rem;text-align:left;color:var(--primary);font-weight:600;}
+td{padding:1rem;border-bottom:1px solid rgba(0,255,136,0.1);color:var(--text-secondary);}
+tr:hover{background:var(--bg-tertiary);}
+.platform-badge{display:inline-block;padding:0.3rem 0.8rem;border-radius:20px;font-size:0.85rem;font-weight:600;}
+.platform-google{background:rgba(66,133,244,0.2);color:#4285f4;}
+.platform-facebook{background:rgba(24,119,242,0.2);color:#1877f2;}
+.platform-linkedin{background:rgba(10,102,194,0.2);color:#0a66c2;}
+.platform-github{background:rgba(255,255,255,0.1);color:#fff;}
+.platform-banking{background:rgba(102,126,234,0.2);color:#667eea;}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1><i class="fas fa-chart-line"></i> Analytics Dashboard</h1>
+
+<div class="card" style="background:rgba(0,217,255,0.1);border-color:var(--accent);text-align:center;padding:2rem;">
+    <h3 style="color:var(--accent);margin-bottom:0.5rem;"><i class="fas fa-database"></i> Educational Demonstration Data</h3>
+    <p style="color:var(--text-secondary);margin:0;">All captured data is stored locally and never transmitted.</p>
+</div>
+
+<div class="dashboard-grid">
+    <div class="stat-card"><span class="stat-number">{{count}}</span><span class="stat-label">Total Captures</span></div>
+    <div class="stat-card"><span class="stat-number">5</span><span class="stat-label">Demo Platforms</span></div>
+    <div class="stat-card"><span class="stat-number">100%</span><span class="stat-label">Local Storage</span></div>
+</div>
+
+<div class="card" style="background: rgba(0, 217, 255, 0.1); border-color: var(--accent);">
+    <h2 style="color: var(--accent);"><i class="fas fa-compass"></i> Explore More Features</h2>
+    <p>Enhance your security awareness with these additional tools:</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+        <a href="{{ url_for('quiz') }}" class="btn btn-secondary" style="text-decoration: none;">
+            <span><i class="fas fa-question-circle"></i> Take Quiz</span>
+        </a>
+        <a href="{{ url_for('campaign') }}" class="btn btn-secondary" style="text-decoration: none;">
+            <span><i class="fas fa-bullhorn"></i> View Campaigns</span>
+        </a>
+        <a href="{{ url_for('analytics') }}" class="btn btn-secondary" style="text-decoration: none;">
+            <span><i class="fas fa-chart-bar"></i> Analytics</span>
+        </a>
+        <a href="{{ url_for('email_templates') }}" class="btn btn-secondary" style="text-decoration: none;">
+            <span><i class="fas fa-envelope"></i> Email Templates</span>
+        </a>
+        <a href="{{ url_for('resources') }}" class="btn btn-secondary" style="text-decoration: none;">
+            <span><i class="fas fa-download"></i> Download Resources</span>
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    <h2><i class="fas fa-table"></i> Captured Credentials Log</h2>
+    
+    {% if captured %}
+    <table>
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Platform</th>
+                <th>Email/Username</th>
+                <th>Password Length</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in captured %}
+            <tr>
+                <td style="font-family:var(--font-mono);font-size:0.85rem;">{{item.timestamp[:19]}}</td>
+                <td><span class="platform-badge platform-{{item.data.platform|lower}}">{{item.data.platform}}</span></td>
+                <td style="font-family:var(--font-mono);">{{item.data.email or item.data.username or 'N/A'}}</td>
+                <td style="color:var(--warning);font-weight:bold;">{{item.data.password_length}} chars</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div style="text-align:center;padding:4rem;">
+        <div style="font-size:4rem;margin-bottom:1rem;opacity:0.3;">📊</div>
+        <h3 style="color:var(--text-muted);">No Data Captured Yet</h3>
+        <p style="color:var(--text-secondary);">Try one of the demos to see how credential capture works!</p>
+        <a href="{{url_for('demo_selector')}}" class="btn btn-primary mt-3"><span>Try Demos</span></a>
+    </div>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h2><i class="fas fa-trash-alt"></i> Data Management</h2>
+    <p>Clear all captured demonstration data.</p>
+    <form method="POST" action="{{url_for('api_clear_data')}}" style="margin-top:2rem;" onsubmit="return confirm('Delete all data?');">
+        <button type="submit" class="btn btn-danger"><span><i class="fas fa-trash"></i> Clear All Data</span></button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+
+{% block title %}Demo Selector - Choose Platform{% endblock %}
+
+{% block content %}
+<h1><i class="fas fa-flask"></i> Phishing Demo Selector</h1>
+
+<div class="card" style="text-align: center; padding: 3rem; background: rgba(255, 204, 0, 0.1); border-color: var(--warning);">
+    <h2 style="color: var(--warning);">⚠️ Educational Demonstrations</h2>
+    <p style="font-size: 1.2rem; margin-top: 1rem;">
+        Choose a platform to see how phishing attacks work. All demonstrations are safe and run locally.
+    </p>
+</div>
+
+<!-- What's New Section (if Project 6) -->
+<div class="card" style="background: rgba(0, 217, 255, 0.1); border-color: var(--accent); margin-bottom: 2rem;">
+    <h2 style="color: var(--accent);"><i class="fas fa-sparkles"></i> New in This Version</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+        <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">↗️ Seamless Redirect</h4>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">
+                After capturing credentials, see how attackers redirect you to the real site to avoid suspicion.
+            </p>
+        </div>
+        <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">🎯 Campaign Scenarios</h4>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">
+                Experience realistic phishing campaigns with social engineering and urgency tactics.
+            </p>
+        </div>
+        <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">❓ Interactive Quiz</h4>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">
+                Test your skills with 10 questions covering URL analysis, email verification, and more.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin: 3rem 0;">
+    <!-- Google Demo -->
+    <div class="card" style="border-color: #4285f4; transition: var(--transition-normal);">
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+            <i class="fab fa-google" style="font-size: 4rem; color: #4285f4;"></i>
+        </div>
+        <h3 style="color: #4285f4;">Google Login</h3>
+        <div style="display: inline-block; padding: 0.4rem 1rem; background: rgba(255, 204, 0, 0.2); border-radius: 20px; margin: 1rem 0;">
+            <span style="color: var(--warning); font-weight: 600;">Difficulty: Easy</span>
+        </div>
+        <p style="color: var(--text-secondary); margin: 1rem 0;">
+            Demonstrates how attackers clone Google's login page to steal Gmail credentials through browser autofill.
+        </p>
+        <ul style="color: var(--text-secondary); line-height: 2; margin: 1rem 0;">
+            <li>Pixel-perfect design replication</li>
+            <li>Google branding and colors</li>
+            <li>Autofill exploitation</li>
+        </ul>
+        <a href="{{ url_for('demo_platform', platform='google') }}" class="btn btn-danger mt-3" style="width: 100%;">
+            <span><i class="fas fa-play"></i> Launch Demo</span>
+        </a>
+    </div>
+
+    <!-- Facebook Demo -->
+    <div class="card" style="border-color: #1877f2; transition: var(--transition-normal);">
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+            <i class="fab fa-facebook" style="font-size: 4rem; color: #1877f2;"></i>
+        </div>
+        <h3 style="color: #1877f2;">Facebook Login</h3>
+        <div style="display: inline-block; padding: 0.4rem 1rem; background: rgba(255, 204, 0, 0.2); border-radius: 20px; margin: 1rem 0;">
+            <span style="color: var(--warning); font-weight: 600;">Difficulty: Easy</span>
+        </div>
+        <p style="color: var(--text-secondary); margin: 1rem 0;">
+            Shows how social media login pages are replicated to harvest user credentials and personal information.
+        </p>
+        <ul style="color: var(--text-secondary); line-height: 2; margin: 1rem 0;">
+            <li>Authentic Facebook styling</li>
+            <li>Social engineering tactics</li>
+            <li>Credential harvesting</li>
+        </ul>
+        <a href="{{ url_for('demo_platform', platform='facebook') }}" class="btn btn-danger mt-3" style="width: 100%;">
+            <span><i class="fas fa-play"></i> Launch Demo</span>
+        </a>
+    </div>
+
+    <!-- LinkedIn Demo -->
+    <div class="card" style="border-color: #0a66c2; transition: var(--transition-normal);">
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+            <i class="fab fa-linkedin" style="font-size: 4rem; color: #0a66c2;"></i>
+        </div>
+        <h3 style="color: #0a66c2;">LinkedIn Login</h3>
+        <div style="display: inline-block; padding: 0.4rem 1rem; background: rgba(255, 136, 0, 0.2); border-radius: 20px; margin: 1rem 0;">
+            <span style="color: #ff8800; font-weight: 600;">Difficulty: Medium</span>
+        </div>
+        <p style="color: var(--text-secondary); margin: 1rem 0;">
+            Professional network phishing targeting business users and corporate credentials.
+        </p>
+        <ul style="color: var(--text-secondary); line-height: 2; margin: 1rem 0;">
+            <li>Professional design aesthetic</li>
+            <li>Corporate targeting</li>
+            <li>Business email compromise</li>
+        </ul>
+        <a href="{{ url_for('demo_platform', platform='linkedin') }}" class="btn btn-danger mt-3" style="width: 100%;">
+            <span><i class="fas fa-play"></i> Launch Demo</span>
+        </a>
+    </div>
+
+    <!-- GitHub Demo -->
+    <div class="card" style="border-color: #fff; transition: var(--transition-normal);">
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+            <i class="fab fa-github" style="font-size: 4rem; color: #fff;"></i>
+        </div>
+        <h3 style="color: #fff;">GitHub Login</h3>
+        <div style="display: inline-block; padding: 0.4rem 1rem; background: rgba(255, 136, 0, 0.2); border-radius: 20px; margin: 1rem 0;">
+            <span style="color: #ff8800; font-weight: 600;">Difficulty: Medium</span>
+        </div>
+        <p style="color: var(--text-secondary); margin: 1rem 0;">
+            Developer-focused phishing targeting source code repositories and sensitive development credentials.
+        </p>
+        <ul style="color: var(--text-secondary); line-height: 2; margin: 1rem 0;">
+            <li>Dark theme authenticity</li>
+            <li>Developer trust exploitation</li>
+            <li>Code repository access</li>
+        </ul>
+        <a href="{{ url_for('demo_platform', platform='github') }}" class="btn btn-danger mt-3" style="width: 100%;">
+            <span><i class="fas fa-play"></i> Launch Demo</span>
+        </a>
+    </div>
+
+    <!-- Banking Demo -->
+    <div class="card" style="border-color: #667eea; transition: var(--transition-normal);">
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+            <i class="fas fa-university" style="font-size: 4rem; color: #667eea;"></i>
+        </div>
+        <h3 style="color: #667eea;">Banking Portal</h3>
+        <div style="display: inline-block; padding: 0.4rem 1rem; background: rgba(255, 51, 102, 0.2); border-radius: 20px; margin: 1rem 0;">
+            <span style="color: var(--danger); font-weight: 600;">Difficulty: Hard</span>
+        </div>
+        <p style="color: var(--text-secondary); margin: 1rem 0;">
+            Financial phishing with security indicators that create false sense of safety.
+        </p>
+        <ul style="color: var(--text-secondary); line-height: 2; margin: 1rem 0;">
+            <li>Fake SSL indicators</li>
+            <li>Security theater</li>
+            <li>Financial data theft</li>
+        </ul>
+        <a href="{{ url_for('demo_platform', platform='banking') }}" class="btn btn-danger mt-3" style="width: 100%;">
+            <span><i class="fas fa-play"></i> Launch Demo</span>
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    <h2><i class="fas fa-eye"></i> What to Look For</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+        <div>
+            <h3 style="color: var(--primary);">URL Tricks</h3>
+            <p style="color: var(--text-secondary);">
+                Pay attention to the URL bar. Real sites use exact domains like "google.com" while 
+                phishing sites use tricks like "gooogle.com" or "google-login.net"
+            </p>
+        </div>
+        <div>
+            <h3 style="color: var(--primary);">Design Mimicry</h3>
+            <p style="color: var(--text-secondary);">
+                Notice how perfectly these demos replicate real sites. Attackers invest heavily 
+                in making pages look authentic.
+            </p>
+        </div>
+        <div>
+            <h3 style="color: var(--primary);">Autofill Capture</h3>
+            <p style="color: var(--text-secondary);">
+                Watch how your browser automatically fills credentials. This happens instantly, 
+                often before you even notice.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="background: rgba(0, 255, 136, 0.1); border-color: var(--success); text-align: center;">
+    <h2 style="color: var(--success);"><i class="fas fa-graduation-cap"></i> Learn More</h2>
+    <p style="font-size: 1.1rem; margin: 1.5rem 0;">
+        After experiencing the demos, explore our training materials to learn how to protect yourself.
+    </p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="{{ url_for('training') }}" class="btn btn-primary">
+            <span><i class="fas fa-book"></i> Training Modules</span>
+        </a>
+        <a href="{{ url_for('protection') }}" class="btn btn-secondary">
+            <span><i class="fas fa-shield-alt"></i> Protection Guide</span>
+        </a>
+        <a href="{{ url_for('detection') }}" class="btn btn-secondary">
+            <span><i class="fas fa-search"></i> Detection Methods</span>
+        </a>
+    </div>
+</div>
+{% endblock %}

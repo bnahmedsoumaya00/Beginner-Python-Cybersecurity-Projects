@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Browser Autofill Attack Simulator{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #00ff88;
+            --primary-dark: #00cc6a;
+            --secondary: #ff0066;
+            --accent: #00d9ff;
+            --bg-primary: #0a0e27;
+            --bg-secondary: #1a1f3a;
+            --bg-tertiary: #252b4a;
+            --bg-card: rgba(26, 31, 58, 0.8);
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --text-muted: #718096;
+            --danger: #ff3366;
+            --warning: #ffcc00;
+            --success: #00ff88;
+            --info: #00d9ff;
+            --glow-primary: 0 0 20px rgba(0, 255, 136, 0.3);
+            --glow-secondary: 0 0 20px rgba(255, 0, 102, 0.3);
+            --glow-accent: 0 0 20px rgba(0, 217, 255, 0.3);
+            --font-primary: 'Outfit', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at top, rgba(0, 255, 136, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.2; margin-bottom: 1rem; }
+        h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        h2 { font-size: 2.5rem; color: var(--primary); text-shadow: var(--glow-primary); }
+        h3 { font-size: 1.8rem; color: var(--text-primary); }
+        p { margin-bottom: 1rem; color: var(--text-secondary); }
+        code {
+            font-family: var(--font-mono);
+            background: var(--bg-tertiary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: var(--primary);
+            font-size: 0.9em;
+        }
+        
+        .header {
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-shadow: var(--glow-primary);
+            transition: var(--transition-fast);
+        }
+        
+        .logo:hover { transform: scale(1.05); }
+        .logo i { font-size: 1.8rem; }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition-fast);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition-normal);
+        }
+        
+        .nav-link:hover { color: var(--primary); }
+        .nav-link:hover::after { width: 100%; }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        .content { min-height: calc(100vh - 200px); padding: 3rem 0; }
+        
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+            transition: var(--transition-slow);
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: var(--glow-primary), 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .card:hover::before { left: 100%; }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            font-family: var(--font-primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn:hover::before { width: 300px; height: 300px; }
+        .btn span { position: relative; z-index: 1; }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: var(--bg-primary);
+            box-shadow: var(--glow-primary);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+            box-shadow: var(--glow-secondary);
+        }
+        
+        .btn-danger:hover {
+            background: #cc0044;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            border-color: var(--primary);
+        }
+        
+        .alert {
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid;
+            backdrop-filter: blur(10px);
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .alert-success { background: rgba(0, 255, 136, 0.1); border-color: var(--success); color: var(--success); }
+        .alert-danger { background: rgba(255, 51, 102, 0.1); border-color: var(--danger); color: var(--danger); }
+        .alert-warning { background: rgba(255, 204, 0, 0.1); border-color: var(--warning); color: var(--warning); }
+        .alert-info { background: rgba(0, 217, 255, 0.1); border-color: var(--info); color: var(--info); }
+        
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid rgba(0, 255, 136, 0.2);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        .footer p { color: var(--text-muted); font-size: 0.9rem; }
+        
+        .text-center { text-align: center; }
+        .text-primary { color: var(--primary); }
+        .text-danger { color: var(--danger); }
+        .mt-3 { margin-top: 1.5rem; }
+        .mt-4 { margin-top: 2rem; }
+        
+        /* Dropdown Navigation Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: var(--bg-card);
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 12px;
+            z-index: 1000;
+            margin-top: 0.5rem;
+            padding: 0.5rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .dropdown-content a {
+            color: var(--text-primary);
+            padding: 12px 20px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition-fast);
+            border-radius: 8px;
+            margin: 0 0.5rem;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--primary);
+            padding-left: 25px;
+        }
+
+        .dropdown-content a i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        .dropdown > a:hover {
+            color: var(--primary);
+        }
+
+        /* Mobile Responsive Dropdown */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem !important;
+            }
+            
+            .dropdown-content {
+                position: static;
+                display: none;
+                box-shadow: none;
+                border: none;
+                margin-top: 0.5rem;
+                padding-left: 1rem;
+            }
+            
+            .dropdown:hover .dropdown-content,
+            .dropdown:focus-within .dropdown-content {
+                display: block;
+            }
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="logo">
+                <i class="fas fa-shield-halved"></i>
+                <span>AutoFill Attack Sim</span>
+            </a>
+            
+            <nav style="display: flex; gap: 2rem; align-items: center;">
+                <a href="{{ url_for('index') }}" style="color: var(--text-primary); text-decoration: none; transition: var(--transition-fast);">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                
+                <!-- DEMOS DROPDOWN -->
+                <div class="dropdown">
+                    <a href="{{ url_for('demo_selector') }}" style="color: var(--text-primary); text-decoration: none;">
+                        <i class="fas fa-flask"></i> Demos <i class="fas fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('demo_selector') }}"><i class="fas fa-th"></i> All Demos</a>
+                        <a href="{{ url_for('demo_platform', platform='google') }}"><i class="fab fa-google"></i> Google</a>
+                        <a href="{{ url_for('demo_platform', platform='facebook') }}"><i class="fab fa-facebook"></i> Facebook</a>
+                        <a href="{{ url_for('demo_platform', platform='linkedin') }}"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                        <a href="{{ url_for('demo_platform', platform='github') }}"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="{{ url_for('demo_platform', platform='banking') }}"><i class="fas fa-university"></i> Banking</a>
+                    </div>
+                </div>
+                
+                <!-- TRAINING DROPDOWN -->
+                <div class="dropdown">
+                    <a href="{{ url_for('training') }}" style="color: var(--text-primary); text-decoration: none;">
+                        <i class="fas fa-graduation-cap"></i> Training <i class="fas fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('training') }}"><i class="fas fa-book"></i> Training Modules</a>
+                        <a href="{{ url_for('protection') }}"><i class="fas fa-shield-alt"></i> Protection Guide</a>
+                        <a href="{{ url_for('detection') }}"><i class="fas fa-search"></i> Detection Methods</a>
+                        <!-- <a href="{{ url_for('quiz') }}"><i class="fas fa-question-circle"></i> Take Quiz</a> -->
+                    </div>
+                </div>
+                
+                <!-- CAMPAIGN DROPDOWN (NEW FOR PROJECT 6) -->
+                <!--
+                <div class="dropdown">
+                    <a href="{{ url_for('campaign') }}" style="color: var(--text-primary); text-decoration: none;">
+                        <i class="fas fa-bullhorn"></i> Campaigns <i class="fas fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('campaign') }}"><i class="fas fa-users"></i> Campaign Scenarios</a>
+                        <a href="{{ url_for('email_templates') }}"><i class="fas fa-envelope"></i> Email Templates</a>
+                        <a href="{{ url_for('resources') }}"><i class="fas fa-download"></i> Resources</a>
+                    </div>
+                </div>
+                -->
+                
+                <!-- ANALYTICS DROPDOWN -->
+                <div class="dropdown">
+                    <a href="{{ url_for('dashboard') }}" style="color: var(--text-primary); text-decoration: none;">
+                        <i class="fas fa-chart-line"></i> Analytics <i class="fas fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('dashboard') }}"><i class="fas fa-table"></i> Dashboard</a>
+                        <!-- <a href="{{ url_for('analytics') }}"><i class="fas fa-chart-bar"></i> Effectiveness Data</a> -->
+                        <!-- <a href="{{ url_for('api_stats') }}"><i class="fas fa-code"></i> API Stats</a> -->
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container" style="padding-top: 2rem;">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    <main class="content">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <p><strong>⚠️ EDUCATIONAL USE ONLY</strong> - For Security Awareness Training</p>
+            <p>Project 5 - Cybersecurity Python Roadmap | Author: bnahmedsoumaya00</p>
+            <p style="margin-top: 1rem; font-size: 0.8rem;">
+                © 2026 - Never use for actual phishing. Local use only.
+            </p>
+        </div>
+    </footer>
+    
+    <footer style="background: var(--bg-secondary); border-top: 1px solid rgba(0, 255, 136, 0.2); margin-top: 4rem; padding: 3rem 0;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+                <div>
+                    <h4 style="color: var(--primary); margin-bottom: 1rem;">Demonstrations</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="{{ url_for('demo_selector') }}" style="color: var(--text-secondary); text-decoration: none;">All Demos</a></li>
+                        <!-- <li style="margin-bottom: 0.5rem;"><a href="{{ url_for('campaign') }}" style="color: var(--text-secondary); text-decoration: none;">Campaign Scenarios</a></li> -->
+                        <!-- <li style="margin-bottom: 0.5rem;"><a href="{{ url_for('email_templates') }}" style="color: var(--text-secondary); text-decoration: none;">Email Templates</a></li> -->
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--primary); margin-bottom: 1rem;">Learning</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="{{ url_for('training') }}" style="color: var(--text-secondary); text-decoration: none;">Training Modules</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="{{ url_for('protection') }}" style="color: var(--text-secondary); text-decoration: none;">Protection Guide</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="{{ url_for('detection') }}" style="color: var(--text-secondary); text-decoration: none;">Detection Methods</a></li>
+                        <!-- <li style="margin-bottom: 0.5rem;"><a href="{{ url_for('quiz') }}" style="color: var(--text-secondary); text-decoration: none;">Take Quiz</a></li> -->
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--primary); margin-bottom: 1rem;">Analytics</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="{{ url_for('dashboard') }}" style="color: var(--text-secondary); text-decoration: none;">Dashboard</a></li>
+                        <!-- <li style="margin-bottom: 0.5rem;"><a href="{{ url_for('analytics') }}" style="color: var(--text-secondary); text-decoration: none;">Effectiveness Data</a></li> -->
+                        <!-- <li style="margin-bottom: 0.5rem;"><a href="{{ url_for('resources') }}" style="color: var(--text-secondary); text-decoration: none;">Resources</a></li> -->
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 style="color: var(--primary); margin-bottom: 1rem;">About</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
+                        Educational security awareness tool built for training purposes only.
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">
+                        Created by: bnahmedsoumaya00<br>
+                        Project 6 - Cybersecurity Challenge
+                    </p>
+                </div>
+            </div>
+            
+            <div style="border-top: 1px solid rgba(0, 255, 136, 0.1); margin-top: 2rem; padding-top: 2rem; text-align: center;">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    ⚠️ FOR EDUCATIONAL PURPOSES ONLY • LOCAL USE ONLY • NOT FOR PUBLIC DEPLOYMENT
+                </p>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">
+                    © 2026 Phishing Awareness Campaign • Built with Flask & Python
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

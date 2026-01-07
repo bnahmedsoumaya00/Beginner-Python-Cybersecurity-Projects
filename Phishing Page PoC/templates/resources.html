@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Downloadable Resources{% endblock %}
+{% block content %}
+<h1><i class="fas fa-download"></i> Downloadable Campaign Materials</h1>
+
+<div class="card">
+    <h2>📄 Awareness Campaign Resources</h2>
+    <p>Download these materials for your organization's security awareness training.</p>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+    <div class="card">
+        <h3><i class="fas fa-file-pdf"></i> Phishing Detection Checklist</h3>
+        <p>Printable checklist for employees to keep at their desk.</p>
+        <ul style="color: var(--text-secondary); font-size: 0.95rem;">
+            <li>✅ URL verification steps</li>
+            <li>✅ Email red flags</li>
+            <li>✅ Reporting procedures</li>
+        </ul>
+        <button class="btn btn-primary mt-2" onclick="generateChecklist()">
+            <span><i class="fas fa-download"></i> Generate PDF</span>
+        </button>
+    </div>
+    
+    <div class="card">
+        <h3><i class="fas fa-file-powerpoint"></i> Training Presentation</h3>
+        <p>Slide deck for conducting awareness training sessions.</p>
+        <ul style="color: var(--text-secondary); font-size: 0.95rem;">
+            <li>✅ 20 slides covering all topics</li>
+            <li>✅ Real-world examples</li>
+            <li>✅ Interactive elements</li>
+        </ul>
+        <button class="btn btn-primary mt-2" onclick="alert('Feature coming soon!')">
+            <span><i class="fas fa-download"></i> Download PPTX</span>
+        </button>
+    </div>
+    
+    <div class="card">
+        <h3><i class="fas fa-image"></i> Awareness Posters</h3>
+        <p>Office posters to remind employees about security.</p>
+        <ul style="color: var(--text-secondary); font-size: 0.95rem;">
+            <li>✅ "Think Before You Click"</li>
+            <li>✅ "Verify URLs"</li>
+            <li>✅ "Enable 2FA"</li>
+        </ul>
+        <button class="btn btn-primary mt-2" onclick="alert('Feature coming soon!')">
+            <span><i class="fas fa-download"></i> Download Posters</span>
+        </button>
+    </div>
+</div>
+
+<script>
+function generateChecklist() {
+    // Simple checklist generation
+    const checklistContent = `
+    PHISHING DETECTION CHECKLIST
+    =============================
+    
+    Before clicking any link or entering credentials:
+    
+    ☐ Verify the sender's email address is legitimate
+    ☐ Check for spelling or grammar errors
+    ☐ Hover over links to see the real destination
+    ☐ Look for urgency or threatening language
+    ☐ Verify unexpected requests through another channel
+    ☐ Check if the website URL is exactly correct
+    ☐ Ensure HTTPS is present (but remember it's not enough alone)
+    ☐ Look for the official company branding and design
+    
+    When in doubt, DON'T CLICK!
+    Report suspicious emails to: security@yourcompany.com
+    `;
+    
+    const blob = new Blob([checklistContent], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'phishing-detection-checklist.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+    
+    alert('✅ Checklist downloaded! Check your Downloads folder.');
+}
+</script>
+{% endblock %}
