@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Educational Warning{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 4rem 0;">
+    <div style="font-size: 5rem; margin-bottom: 2rem; animation: pulse 2s infinite;">⚠️</div>
+    <h1 style="color: var(--danger);">Critical Legal Warning</h1>
+    <p style="font-size: 1.3rem; margin: 2rem 0;">You must acknowledge the following before proceeding</p>
+</div>
+
+<div class="card" style="max-width: 900px; margin: 0 auto; background: rgba(239, 68, 68, 0.1); border-color: var(--danger);">
+    <h2 style="color: var(--danger);">⚠️ This Tool Demonstrates Malware Techniques</h2>
+    
+    <div style="background: var(--bg-tertiary); padding: 2rem; border-radius: 12px; margin: 2rem 0;">
+        <h3 style="color: var(--warning);">FOR EDUCATIONAL PURPOSES ONLY</h3>
+        <p style="color: var(--text-secondary); line-height: 1.8;">
+            This application demonstrates how malware can be hidden in image files using polyglot file techniques. 
+            These are real attack methods used by cybercriminals. Misuse is illegal and unethical.
+        </p>
+    </div>
+    
+    <div style="background: var(--bg-tertiary); padding: 2rem; border-radius: 12px; margin: 2rem 0;">
+        <h3 style="color: var(--danger);">❌ ILLEGAL USES (Criminal Offense):</h3>
+        <ul style="color: var(--text-secondary); line-height: 2;">
+            <li>Creating or distributing actual malware</li>
+            <li>Hiding malicious code in files for distribution</li>
+            <li>Using these techniques for unauthorized access</li>
+            <li>Infecting systems without authorization</li>
+            <li>Any use that violates computer fraud laws</li>
+        </ul>
+    </div>
+    
+    <div style="background: var(--bg-tertiary); padding: 2rem; border-radius: 12px; margin: 2rem 0;">
+        <h3 style="color: var(--success);">✅ LEGAL USES:</h3>
+        <ul style="color: var(--text-secondary); line-height: 2;">
+            <li>Educational demonstrations in controlled environments</li>
+            <li>Security awareness training for authorized personnel</li>
+            <li>Understanding malware delivery methods</li>
+            <li>Learning detection techniques</li>
+            <li>Cybersecurity research (with proper authorization)</li>
+        </ul>
+    </div>
+    
+    <form method="POST" action="{{ url_for('acknowledge_educational') }}" style="margin-top: 3rem;">
+        <h3 style="color: var(--primary); margin-bottom: 2rem;">Required Acknowledgments:</h3>
+        
+        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+            <label style="display: flex; align-items: flex-start; gap: 1rem; cursor: pointer; color: var(--text-primary);">
+                <input type="checkbox" name="educational_use" style="margin-top: 0.3rem; width: 20px; height: 20px; cursor: pointer;">
+                <span>I understand this tool is for <strong>educational purposes only</strong></span>
+            </label>
+        </div>
+        
+        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+            <label style="display: flex; align-items: flex-start; gap: 1rem; cursor: pointer; color: var(--text-primary);">
+                <input type="checkbox" name="local_only" style="margin-top: 0.3rem; width: 20px; height: 20px; cursor: pointer;">
+                <span>I will <strong>ONLY use this locally</strong> for learning and testing</span>
+            </label>
+        </div>
+        
+        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+            <label style="display: flex; align-items: flex-start; gap: 1rem; cursor: pointer; color: var(--text-primary);">
+                <input type="checkbox" name="no_malware" style="margin-top: 0.3rem; width: 20px; height: 20px; cursor: pointer;">
+                <span>I will <strong>NEVER create or distribute actual malware</strong></span>
+            </label>
+        </div>
+        
+        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+            <label style="display: flex; align-items: flex-start; gap: 1rem; cursor: pointer; color: var(--text-primary);">
+                <input type="checkbox" name="understand_illegal" style="margin-top: 0.3rem; width: 20px; height: 20px; cursor: pointer;">
+                <span>I understand that <strong>misuse is a serious criminal offense</strong></span>
+            </label>
+        </div>
+        
+        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+            <label style="display: flex; align-items: flex-start; gap: 1rem; cursor: pointer; color: var(--text-primary);">
+                <input type="checkbox" name="accept_responsibility" style="margin-top: 0.3rem; width: 20px; height: 20px; cursor: pointer;">
+                <span>I <strong>accept full legal responsibility</strong> for how I use this tool</span>
+            </label>
+        </div>
+        
+        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+            <label style="display: flex; align-items: flex-start; gap: 1rem; cursor: pointer; color: var(--text-primary);">
+                <input type="checkbox" name="protect_not_harm" style="margin-top: 0.3rem; width: 20px; height: 20px; cursor: pointer;">
+                <span>My goal is to <strong>learn security, not create threats</strong></span>
+            </label>
+        </div>
+        
+        <div style="text-align: center;">
+            <button type="submit" class="btn btn-primary" style="font-size: 1.2rem; padding: 1.5rem 3rem;">
+                <span>I Acknowledge and Agree</span>
+            </button>
+        </div>
+    </form>
+    
+    <div style="margin-top: 2rem; padding: 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 8px; text-align: center;">
+        <p style="color: var(--danger); margin: 0; font-weight: bold;">
+            Creating or distributing malware is a federal crime punishable by imprisonment
+        </p>
+    </div>
+</div>
+
+<style>
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+}
+</style>
+{% endblock %}

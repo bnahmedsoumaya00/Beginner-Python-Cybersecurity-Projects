@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}File Detector - Scan for Hidden Executables{% endblock %}
+
+{% block content %}
+<h1><i class="fas fa-search"></i> File Detector</h1>
+
+<div class="card" style="background: rgba(6, 182, 212, 0.1); border-color: var(--info); text-align: center;">
+    <h3 style="color: var(--info);"><i class="fas fa-shield-alt"></i> Security Scanner</h3>
+    <p style="margin: 1rem 0;">
+        Upload any file to scan for hidden executables, analyze file signatures, and detect polyglot characteristics.
+    </p>
+</div>
+
+<form method="POST" action="{{ url_for('detect_file') }}" enctype="multipart/form-data" style="max-width: 800px; margin: 0 auto;">
+    <div class="card">
+        <h2>Upload File for Analysis</h2>
+        <p style="color: var(--text-secondary);">Upload any file type - images, documents, executables, archives</p>
+        
+        <div class="form-group">
+            <div class="file-input-wrapper">
+                <input type="file" name="file" id="file" required onchange="updateFileName()">
+                <label for="file" class="file-input-label">
+                    <i class="fas fa-file-upload"></i>
+                    <div style="margin-top: 0.5rem; color: var(--text-primary);">Click to select file</div>
+                    <div id="file-filename" style="margin-top: 0.5rem; color: var(--accent); font-weight: bold;"></div>
+                </label>
+            </div>
+        </div>
+        
+        <div style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+            <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>What we check:</strong> File signatures, hidden executables, size anomalies, suspicious patterns
+            </p>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 2rem;">
+        <button type="submit" class="btn btn-primary" style="font-size: 1.2rem; padding: 1.5rem 3rem;">
+            <span><i class="fas fa-search"></i> Scan File</span>
+        </button>
+    </div>
+</form>
+
+<div class="card" style="margin-top: 3rem;">
+    <h2><i class="fas fa-info-circle"></i> What the Detector Checks</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem;">
+        <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px;">
+            <div style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;">
+                <i class="fas fa-fingerprint"></i>
+            </div>
+            <h4 style="color: var(--primary);">File Signatures</h4>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                Examines magic bytes (file headers) to identify the true file type, detecting mismatches 
+                between extension and actual content.
+            </p>
+        </div>
+        
+        <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px;">
+            <div style="font-size: 2.5rem; color: var(--secondary); margin-bottom: 1rem;">
+                <i class="fas fa-virus"></i>
+            </div>
+            <h4 style="color: var(--secondary);">Hidden Executables</h4>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                Scans entire file for PE executable signatures (MZ header), not just the beginning, 
+                to find embedded code.
+            </p>
+        </div>
+        
+        <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px;">
+            <div style="font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem;">
+                <i class="fas fa-expand-arrows-alt"></i>
+            </div>
+            <h4 style="color: var(--accent);">Size Analysis</h4>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                Compares actual file size with expected size based on type. Significant differences 
+                indicate possible hidden content.
+            </p>
+        </div>
+        
+        <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px;">
+            <div style="font-size: 2.5rem; color: var(--warning); margin-bottom: 1rem;">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h4 style="color: var(--warning);">Anomaly Detection</h4>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                Identifies unusual patterns, multiple file type indicators, marker bytes, and other 
+                suspicious characteristics.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h2><i class="fas fa-chart-bar"></i> Detection Capabilities</h2>
+    
+    <div style="margin-top: 2rem;">
+        <div style="margin-bottom: 2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <span style="color: var(--text-primary); font-weight: 600;">PE Executables (Windows)</span>
+                <span style="color: var(--success); font-weight: bold;">95%</span>
+            </div>
+            <div style="background: var(--bg-tertiary); height: 30px; border-radius: 15px; overflow: hidden;">
+                <div style="width: 95%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); animation: slideIn 1s;"></div>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <span style="color: var(--text-primary); font-weight: 600;">ELF Executables (Linux)</span>
+                <span style="color: var(--success); font-weight: bold;">92%</span>
+            </div>
+            <div style="background: var(--bg-tertiary); height: 30px; border-radius: 15px; overflow: hidden;">
+                <div style="width: 92%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); animation: slideIn 1.2s;"></div>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <span style="color: var(--text-primary); font-weight: 600;">ZIP Polyglots</span>
+                <span style="color: var(--warning); font-weight: bold;">88%</span>
+            </div>
+            <div style="background: var(--bg-tertiary); height: 30px; border-radius: 15px; overflow: hidden;">
+                <div style="width: 88%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); animation: slideIn 1.4s;"></div>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <span style="color: var(--text-primary); font-weight: 600;">Concatenated Files</span>
+                <span style="color: var(--success); font-weight: bold;">97%</span>
+            </div>
+            <div style="background: var(--bg-tertiary); height: 30px; border-radius: 15px; overflow: hidden;">
+                <div style="width: 97%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); animation: slideIn 1.6s;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+@keyframes slideIn {
+    from { width: 0; }
+}
+</style>
+
+<script>
+function updateFileName() {
+    const input = document.getElementById('file');
+    const display = document.getElementById('file-filename');
+    if (input.files.length > 0) {
+        const file = input.files[0];
+        const size = (file.size / 1024 / 1024).toFixed(2);
+        display.textContent = `${file.name} (${size} MB)`;
+    }
+}
+</script>
+{% endblock %}

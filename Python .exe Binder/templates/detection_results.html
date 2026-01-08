@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Detection Results{% endblock %}
+
+{% block content %}
+<h1><i class="fas fa-clipboard-check"></i> Detection Results</h1>
+
+{% if results.is_suspicious %}
+<div class="card" style="background: rgba(239, 68, 68, 0.1); border-color: var(--danger);">
+    <div style="text-align: center; padding: 2rem;">
+        <div style="font-size: 5rem; color: var(--danger); margin-bottom: 1rem;">🚨</div>
+        <h2 style="color: var(--danger);">SUSPICIOUS FILE DETECTED!</h2>
+        <p style="font-size: 1.2rem; color: var(--text-secondary);">
+            This file contains characteristics of a polyglot or infected file.
+        </p>
+    </div>
+</div>
+{% else %}
+<div class="card" style="background: rgba(16, 185, 129, 0.1); border-color: var(--success);">
+    <div style="text-align: center; padding: 2rem;">
+        <div style="font-size: 5rem; color: var(--success); margin-bottom: 1rem;">✓</div>
+        <h2 style="color: var(--success);">File Appears Normal</h2>
+        <p style="font-size: 1.2rem; color: var(--text-secondary);">
+            No hidden executables or suspicious patterns detected.
+        </p>
+    </div>
+</div>
+{% endif %}
+
+<div class="card">
+    <h2>File Information</h2>
+    
+    <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0;">
+        <div style="display: grid; gap: 1rem;">
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">
+                <span style="color: var(--text-secondary);">File Name:</span>
+                <span style="color: var(--text-primary); font-weight: bold; font-family: var(--font-mono);">{{ results.file_name }}</span>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">
+                <span style="color: var(--text-secondary);">File Size:</span>
+                <span style="color: var(--text-primary); font-weight: bold;">{{ "%.2f"|format(results.file_size / 1024 / 1024) }} MB ({{ "{:,}".format(results.file_size) }} bytes)</span>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">
+                <span style="color: var(--text-secondary);">Extension:</span>
+                <span style="color: var(--text-primary); font-weight: bold; font-family: var(--font-mono);">{{ results.extension }}</span>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0;">
+                <span style="color: var(--text-secondary);">Detected Types:</span>
+                <span style="color: var(--primary); font-weight: bold;">
+                    {% if results.detected_types %}
+                        {{ results.detected_types|join(', ') }}
+                    {% else %}
+                        Unknown
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>File Header Analysis</h2>
+    
+    {% if results.header_hex %}
+    <div style="margin-top: 1.5rem;">
+        <h4 style="color: var(--primary);">Hexadecimal View:</h4>
+        <div class="hex-display" style="margin-top: 1rem;">
+            {{ results.header_hex }}
+        </div>
+        
+        <h4 style="color: var(--primary); margin-top: 2rem;">ASCII Representation:</h4>
+        <div class="hex-display" style="margin-top: 1rem;">
+            {{ results.header_ascii }}
+        </div>
+    </div>
+    {% endif %}
+    
+    <div style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; margin-top: 1.5rem;">
+        <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">
+            <strong>Note:</strong> The first 32 bytes often reveal file type through "magic bytes" or file signatures.
+        </p>
+    </div>
+</div>
+
+{% if results.is_suspicious %}
+<div class="card" style="background: rgba(239, 68, 68, 0.05); border-color: var(--danger);">
+    <h2 style="color: var(--danger);"><i class="fas fa-exclamation-triangle"></i> Threat Analysis</h2>
+    
+    <div style="margin-top: 1.5rem;">
+        <h4>Reasons for Suspicion:</h4>
+        <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+            {% for reason in results.reasons %}
+            <li style="padding: 1rem; margin-bottom: 0.5rem; background: var(--bg-tertiary); border-left: 4px solid var(--danger); border-radius: 8px;">
+                <i class="fas fa-exclamation-circle" style="color: var(--danger); margin-right: 0.5rem;"></i>
+                <span style="color: var(--text-primary);">{{ reason }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    {% if results.executable_found %}
+    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(239, 68, 68, 0.1); border-radius: 12px; border: 1px solid var(--danger);">
+        <h4 style="color: var(--danger); margin-top: 0;">Hidden Executable Detected!</h4>
+        <p style="color: var(--text-secondary);">
+            This file contains executable code signatures (MZ header). Executable code found at the following positions:
+        </p>
+        <ul style="color: var(--text-primary); font-family: var(--font-mono); margin-top: 1rem;">
+            {% for pos in results.exe_positions %}
+                {% if pos is sequence and pos is not string %}
+                <li>{{ pos[0] }}: Byte {{ "{:,}".format(pos[1]) }}</li>
+                {% else %}
+                <li>Byte {{ "{:,}".format(pos) }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+<div class="card">
+    <h2><i class="fas fa-shield-alt"></i> Recommended Actions</h2>
+    
+    {% if results.is_suspicious %}
+    <div style="background: rgba(239, 68, 68, 0.1); padding: 1.5rem; border-radius: 12px; margin-top: 1rem;">
+        <h4 style="color: var(--danger); margin-top: 0;">⚠️ For Suspicious Files:</h4>
+        <ul style="color: var(--text-secondary); line-height: 2;">
+            <li><strong>Do not execute</strong> this file or any extracted contents</li>
+            <li><strong>Isolate</strong> the file in a secure sandbox environment</li>
+            <li><strong>Extract</strong> using our Extractor tool for analysis</li>
+            <li><strong>Scan</strong> with multiple antivirus engines</li>
+            <li><strong>Report</strong> if you received this from an untrusted source</li>
+        </ul>
+    </div>
+    {% else %}
+    <div style="background: rgba(16, 185, 129, 0.1); padding: 1.5rem; border-radius: 12px; margin-top: 1rem;">
+        <h4 style="color: var(--success); margin-top: 0;">✓ For Normal Files:</h4>
+        <ul style="color: var(--text-secondary); line-height: 2;">
+            <li>File appears to be genuine</li>
+            <li>No hidden executables detected</li>
+            <li>File type matches extension</li>
+            <li>Still exercise caution with files from unknown sources</li>
+        </ul>
+    </div>
+    {% endif %}
+</div>
+
+<div style="text-align: center; margin-top: 3rem;">
+    {% if results.is_suspicious and results.executable_found %}
+    <a href="{{ url_for('extractor_page') }}" class="btn btn-primary" style="margin-right: 1rem;">
+        <span><i class="fas fa-file-export"></i> Extract Hidden Executable</span>
+    </a>
+    {% endif %}
+    
+    <a href="{{ url_for('detector_page') }}" class="btn btn-secondary">
+        <span><i class="fas fa-redo"></i> Scan Another File</span>
+    </a>
+</div>
+{% endblock %}

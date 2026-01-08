@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}Python .exe Binder - Educational Tool{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 4rem 0;">
+    <h1 style="font-size: 4rem; margin-bottom: 1rem;">Python .exe Binder</h1>
+    <p style="font-size: 1.5rem; color: var(--text-secondary); margin-bottom: 3rem;">
+        Educational Demonstration of Polyglot Files & Hidden Executables
+    </p>
+    
+    <div style="display: inline-flex; gap: 1rem; align-items: center; background: rgba(239, 68, 68, 0.1); padding: 1rem 2rem; border-radius: 12px; border: 1px solid var(--danger);">
+        <i class="fas fa-exclamation-triangle" style="font-size: 2rem; color: var(--danger);"></i>
+        <span style="color: var(--danger); font-weight: bold;">FOR EDUCATIONAL PURPOSES ONLY</span>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin: 3rem 0;">
+    <!-- Binder Card -->
+    <div class="card" style="text-align: center;">
+        <div style="font-size: 4rem; color: var(--primary); margin-bottom: 1rem;">
+            <i class="fas fa-link"></i>
+        </div>
+        <h3 style="color: var(--primary);">File Binder</h3>
+        <p style="color: var(--text-secondary); margin: 1rem 0;">
+            Hide executable files inside images creating polyglot files that are both valid images and contain hidden code.
+        </p>
+        <ul style="color: var(--text-secondary); text-align: left; line-height: 2; margin: 1rem 0;">
+            <li>Bind .exe to PNG/JPG/GIF</li>
+            <li>Multiple binding methods</li>
+            <li>Size analysis</li>
+            <li>Educational demonstration</li>
+        </ul>
+        <a href="{{ url_for('binder_page') }}" class="btn btn-primary mt-3" style="width: 100%;">
+            <span><i class="fas fa-play"></i> Launch Binder</span>
+        </a>
+    </div>
+
+    <!-- Detector Card -->
+    <div class="card" style="text-align: center;">
+        <div style="font-size: 4rem; color: var(--secondary); margin-bottom: 1rem;">
+            <i class="fas fa-search"></i>
+        </div>
+        <h3 style="color: var(--secondary);">File Detector</h3>
+        <p style="color: var(--text-secondary); margin: 1rem 0;">
+            Analyze files for hidden executables, suspicious signatures, and polyglot characteristics.
+        </p>
+        <ul style="color: var(--text-secondary); text-align: left; line-height: 2; margin: 1rem 0;">
+            <li>File signature analysis</li>
+            <li>Hidden exe detection</li>
+            <li>Hex dump viewer</li>
+            <li>Threat assessment</li>
+        </ul>
+        <a href="{{ url_for('detector_page') }}" class="btn btn-primary mt-3" style="width: 100%;">
+            <span><i class="fas fa-play"></i> Launch Detector</span>
+        </a>
+    </div>
+
+    <!-- Extractor Card -->
+    <div class="card" style="text-align: center;">
+        <div style="font-size: 4rem; color: var(--accent); margin-bottom: 1rem;">
+            <i class="fas fa-file-export"></i>
+        </div>
+        <h3 style="color: var(--accent);">Extractor</h3>
+        <p style="color: var(--text-secondary); margin: 1rem 0;">
+            Extract hidden executables from polyglot files for analysis and examination.
+        </p>
+        <ul style="color: var(--text-secondary); text-align: left; line-height: 2; margin: 1rem 0;">
+            <li>Automatic extraction</li>
+            <li>Multiple exe support</li>
+            <li>Safe handling</li>
+            <li>Detailed reporting</li>
+        </ul>
+        <a href="{{ url_for('extractor_page') }}" class="btn btn-primary mt-3" style="width: 100%;">
+            <span><i class="fas fa-play"></i> Launch Extractor</span>
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    <h2><i class="fas fa-info-circle"></i> What are Polyglot Files?</h2>
+    <p style="font-size: 1.1rem; line-height: 1.8;">
+        Polyglot files are files that are valid in multiple formats simultaneously. For example, a file can be 
+        both a valid PNG image and contain executable code. This technique is commonly used by malware to evade 
+        detection systems that only check file extensions or basic signatures.
+    </p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+        <div>
+            <h4 style="color: var(--primary);">How It Works</h4>
+            <p style="color: var(--text-secondary);">
+                Most file formats only read their relevant headers and data. By appending executable code after 
+                the image data, the file remains a valid image while also containing hidden code.
+            </p>
+        </div>
+        
+        <div>
+            <h4 style="color: var(--primary);">Real-World Usage</h4>
+            <p style="color: var(--text-secondary);">
+                Attackers use polyglot files to bypass security filters, hide malware in seemingly innocent files, 
+                and exploit trust in common file formats like images and documents.
+            </p>
+        </div>
+        
+        <div>
+            <h4 style="color: var(--primary);">Detection</h4>
+            <p style="color: var(--text-secondary);">
+                Proper security tools scan entire files for suspicious patterns, not just headers. File size 
+                analysis and deep signature scanning can reveal hidden content.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="background: rgba(139, 92, 246, 0.1); border-color: var(--primary);">
+    <h2><i class="fas fa-graduation-cap"></i> Educational Resources</h2>
+    <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+        Learn about file signatures, malware delivery methods, and detection techniques.
+    </p>
+    
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="{{ url_for('learning') }}" class="btn btn-secondary">
+            <span><i class="fas fa-book"></i> Learning Materials</span>
+        </a>
+        <a href="{{ url_for('signatures') }}" class="btn btn-secondary">
+            <span><i class="fas fa-fingerprint"></i> File Signatures Reference</span>
+        </a>
+    </div>
+</div>
+
+<div class="card" style="background: rgba(239, 68, 68, 0.1); border-color: var(--danger); text-align: center;">
+    <h2 style="color: var(--danger);"><i class="fas fa-shield-alt"></i> Security Reminder</h2>
+    <p style="font-size: 1.1rem; line-height: 1.8;">
+        This tool demonstrates real malware techniques. Understanding these methods helps security professionals 
+        protect systems and educate users. Never use these techniques for malicious purposes.
+    </p>
+    <div style="margin-top: 2rem; padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+        <p style="margin: 0; color: var(--text-secondary);">
+            <strong>Key Principle:</strong> Learn to defend, not to attack. Use knowledge responsibly.
+        </p>
+    </div>
+</div>
+
+<div class="card">
+    <h2><i class="fas fa-chart-line"></i> Real-World Statistics</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+        <div style="text-align: center; padding: 2rem; background: var(--bg-tertiary); border-radius: 12px;">
+            <div style="font-size: 3rem; color: var(--primary); font-weight: bold; margin-bottom: 0.5rem;">68%</div>
+            <p style="color: var(--text-secondary); margin: 0;">Of malware uses steganography or polyglot techniques</p>
+        </div>
+        
+        <div style="text-align: center; padding: 2rem; background: var(--bg-tertiary); border-radius: 12px;">
+            <div style="font-size: 3rem; color: var(--secondary); font-weight: bold; margin-bottom: 0.5rem;">43%</div>
+            <p style="color: var(--text-secondary); margin: 0;">Of attacks hide malware in image files</p>
+        </div>
+        
+        <div style="text-align: center; padding: 2rem; background: var(--bg-tertiary); border-radius: 12px;">
+            <div style="font-size: 3rem; color: var(--accent); font-weight: bold; margin-bottom: 0.5rem;">$4.5M</div>
+            <p style="color: var(--text-secondary); margin: 0;">Average cost of malware breach in 2023</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

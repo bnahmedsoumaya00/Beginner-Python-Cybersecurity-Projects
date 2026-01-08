@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}Extraction Successful{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 4rem 0;">
+    <div style="font-size: 6rem; color: var(--warning); margin-bottom: 2rem;">⚠️</div>
+    <h1 style="color: var(--warning);">Executable Extracted!</h1>
+    <p style="font-size: 1.3rem; margin: 2rem 0;">
+        Hidden executable has been extracted from the file.
+    </p>
+</div>
+
+<div class="card" style="max-width: 800px; margin: 0 auto; background: rgba(239, 68, 68, 0.1); border-color: var(--danger);">
+    <h2 style="color: var(--danger);"><i class="fas fa-exclamation-triangle"></i> CRITICAL WARNING</h2>
+    
+    <div style="background: var(--bg-tertiary); padding: 2rem; border-radius: 12px; margin: 1.5rem 0;">
+        <h3 style="color: var(--danger); margin-top: 0;">DO NOT RUN THIS EXECUTABLE!</h3>
+        <p style="color: var(--text-secondary); line-height: 1.8; margin: 0;">
+            You have successfully extracted an executable file that was hidden inside another file. 
+            This could be malware or malicious code. <strong>Never execute this file on your main system.</strong>
+        </p>
+    </div>
+</div>
+
+<div class="card" style="max-width: 800px; margin: 2rem auto 0;">
+    <h2>Extraction Results</h2>
+    
+    <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0;">
+        <div style="display: grid; gap: 1rem;">
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">
+                <span style="color: var(--text-secondary);">Input File:</span>
+                <span style="color: var(--text-primary); font-weight: bold; font-family: var(--font-mono);">{{ result.input_file|basename }}</span>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">
+                <span style="color: var(--text-secondary);">Extracted File:</span>
+                <span style="color: var(--primary); font-weight: bold; font-family: var(--font-mono);">{{ result.output_file|basename }}</span>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">
+                <span style="color: var(--text-secondary);">Executable Size:</span>
+                <span style="color: var(--text-primary); font-weight: bold;">{{ "%.2f"|format(result.exe_size / 1024 / 1024) }} MB</span>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">
+                <span style="color: var(--text-secondary);">Start Position:</span>
+                <span style="color: var(--text-primary); font-weight: bold; font-family: var(--font-mono);">Byte {{ "{:,}".format(result.start_position) }}</span>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0;">
+                <span style="color: var(--text-secondary);">End Position:</span>
+                <span style="color: var(--text-primary); font-weight: bold; font-family: var(--font-mono);">Byte {{ "{:,}".format(result.end_position) }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="max-width: 800px; margin: 2rem auto 0;">
+    <h2><i class="fas fa-shield-alt"></i> Safe Analysis Procedures</h2>
+    
+    <div style="display: grid; gap: 1.5rem; margin-top: 1.5rem;">
+        <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">1. Use a Virtual Machine</h4>
+            <p style="color: var(--text-secondary); margin: 0;">
+                Always analyze extracted executables in an isolated VM (VirtualBox, VMware) that can be 
+                reset to a clean state. Never on your main operating system.
+            </p>
+        </div>
+        
+        <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">2. Scan with Multiple Tools</h4>
+            <p style="color: var(--text-secondary); margin: 0;">
+                Upload to VirusTotal, scan with local antivirus, use specialized malware analysis tools 
+                before any execution.
+            </p>
+        </div>
+        
+        <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">3. Static Analysis First</h4>
+            <p style="color: var(--text-secondary); margin: 0;">
+                Use tools like PEiD, strings, or hex editors to examine the executable without running it. 
+                Look for suspicious strings or patterns.
+            </p>
+        </div>
+        
+        <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">4. Sandbox Execution</h4>
+            <p style="color: var(--text-secondary); margin: 0;">
+                If you must run it, use automated malware sandboxes like Any.run or Cuckoo Sandbox that 
+                monitor behavior in controlled environments.
+            </p>
+        </div>
+        
+        <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">5. Network Isolation</h4>
+            <p style="color: var(--text-secondary); margin: 0;">
+                Disconnect from all networks before analysis. Malware often attempts to connect to 
+                command-and-control servers or spread across networks.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+    <a href="{{ url_for('download_file', filename=session.get('extracted_file')) }}" class="btn btn-danger" style="margin-right: 1rem;">
+        <span><i class="fas fa-download"></i> Download Extracted Executable</span>
+    </a>
+    
+    <a href="{{ url_for('extractor_page') }}" class="btn btn-secondary">
+        <span><i class="fas fa-redo"></i> Extract Another</span>
+    </a>
+</div>
+
+<div class="card" style="max-width: 800px; margin: 3rem auto 0; background: rgba(245, 158, 11, 0.1); border-color: var(--warning);">
+    <h3 style="color: var(--warning);"><i class="fas fa-exclamation-circle"></i> Remember</h3>
+    <p style="margin: 0; color: var(--text-secondary); line-height: 1.8;">
+        This extracted file was hidden inside another file - a common malware delivery technique. 
+        Treat it as potentially malicious until proven otherwise. When in doubt, don't execute it.
+    </p>
+</div>
+{% endblock %}

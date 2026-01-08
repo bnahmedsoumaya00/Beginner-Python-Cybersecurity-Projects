@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Binding Successful{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 4rem 0;">
+    <div style="font-size: 6rem; color: var(--success); margin-bottom: 2rem;">✓</div>
+    <h1 style="color: var(--success);">Files Successfully Bound!</h1>
+    <p style="font-size: 1.3rem; margin: 2rem 0;">
+        The executable has been hidden inside the image file.
+    </p>
+</div>
+
+<div class="card" style="max-width: 800px; margin: 0 auto;">
+    <h2>Binding Results</h2>
+    
+    <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0;">
+        <div style="display: grid; gap: 1rem;">
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">
+                <span style="color: var(--text-secondary);">Original Image:</span>
+                <span style="color: var(--text-primary); font-weight: bold;">{{ result.original_image }}</span>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">
+                <span style="color: var(--text-secondary);">Executable:</span>
+                <span style="color: var(--text-primary); font-weight: bold;">{{ result.executable }}</span>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">
+                <span style="color: var(--text-secondary);">Output File:</span>
+                <span style="color: var(--primary); font-weight: bold;">{{ result.output_file }}</span>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">
+                <span style="color: var(--text-secondary);">Binding Method:</span>
+                <span style="color: var(--text-primary); font-weight: bold;">{{ result.method }}</span>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0;">
+                <span style="color: var(--text-secondary);">Final Size:</span>
+                <span style="color: var(--text-primary); font-weight: bold;">{{ "%.2f"|format(result.size / 1024 / 1024) }} MB</span>
+            </div>
+        </div>
+    </div>
+    
+    <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid var(--danger); padding: 1.5rem; border-radius: 12px; margin: 2rem 0;">
+        <h3 style="color: var(--danger); margin-top: 0;"><i class="fas fa-exclamation-triangle"></i> Important Notice</h3>
+        <p style="color: var(--text-secondary); margin: 0;">
+            This file now contains hidden executable code! It appears as a normal image but has additional data 
+            that can be extracted and executed. This demonstrates how malware can be disguised.
+        </p>
+    </div>
+    
+    <div style="text-align: center; margin-top: 3rem;">
+        <a href="{{ url_for('download_file', filename=result.output_file) }}" class="btn btn-primary" style="margin-right: 1rem;">
+            <span><i class="fas fa-download"></i> Download Bound File</span>
+        </a>
+        
+        <a href="{{ url_for('detector_page') }}" class="btn btn-secondary">
+            <span><i class="fas fa-search"></i> Analyze with Detector</span>
+        </a>
+    </div>
+</div>
+
+<div class="card" style="max-width: 800px; margin: 2rem auto 0;">
+    <h2><i class="fas fa-lightbulb"></i> What to Do Next</h2>
+    
+    <div style="display: grid; gap: 1.5rem; margin-top: 1.5rem;">
+        <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Test Detection</h4>
+            <p style="color: var(--text-secondary); margin: 0;">
+                Upload the bound file to the Detector tool to see how security tools identify hidden executables.
+            </p>
+        </div>
+        
+        <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Try Extraction</h4>
+            <p style="color: var(--text-secondary); margin: 0;">
+                Use the Extractor tool to pull out the hidden executable and examine it separately.
+            </p>
+        </div>
+        
+        <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px;">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">View as Image</h4>
+            <p style="color: var(--text-secondary); margin: 0;">
+                Open the bound file in an image viewer. It will display normally despite containing hidden code!
+            </p>
+        </div>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 3rem;">
+    <a href="{{ url_for('binder_page') }}" class="btn btn-secondary">
+        <span><i class="fas fa-redo"></i> Create Another</span>
+    </a>
+</div>
+{% endblock %}

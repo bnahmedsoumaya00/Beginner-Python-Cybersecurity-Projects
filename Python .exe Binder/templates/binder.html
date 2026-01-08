@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}File Binder - Hide Executable in Image{% endblock %}
+
+{% block content %}
+<h1><i class="fas fa-link"></i> File Binder</h1>
+
+<div class="card" style="background: rgba(245, 158, 11, 0.1); border-color: var(--warning); text-align: center;">
+    <h3 style="color: var(--warning);"><i class="fas fa-exclamation-triangle"></i> Educational Demonstration</h3>
+    <p style="margin: 1rem 0;">
+        This tool demonstrates how malware can be hidden inside image files. The resulting polyglot file 
+        is both a valid image and contains executable code.
+    </p>
+</div>
+
+<form method="POST" action="{{ url_for('bind_files') }}" enctype="multipart/form-data" style="max-width: 800px; margin: 0 auto;">
+    <div class="card">
+        <h2>Step 1: Select Image File</h2>
+        <p style="color: var(--text-secondary);">Choose a PNG, JPG, GIF, or BMP image file</p>
+        
+        <div class="form-group">
+            <div class="file-input-wrapper">
+                <input type="file" name="image" id="image" accept=".png,.jpg,.jpeg,.gif,.bmp" required onchange="updateFileName('image')">
+                <label for="image" class="file-input-label">
+                    <i class="fas fa-image"></i>
+                    <div style="margin-top: 0.5rem; color: var(--text-primary);">Click to select image</div>
+                    <div id="image-filename" style="margin-top: 0.5rem; color: var(--primary); font-weight: bold;"></div>
+                </label>
+            </div>
+        </div>
+        
+        <div style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+            <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">
+                <strong>Note:</strong> The image will remain viewable but will contain hidden executable code.
+            </p>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2>Step 2: Select Executable File</h2>
+        <p style="color: var(--text-secondary);">Choose a .exe or .py file to hide</p>
+        
+        <div class="form-group">
+            <div class="file-input-wrapper">
+                <input type="file" name="executable" id="executable" accept=".exe,.py" required onchange="updateFileName('executable')">
+                <label for="executable" class="file-input-label">
+                    <i class="fas fa-file-code"></i>
+                    <div style="margin-top: 0.5rem; color: var(--text-primary);">Click to select executable</div>
+                    <div id="executable-filename" style="margin-top: 0.5rem; color: var(--primary); font-weight: bold;"></div>
+                </label>
+            </div>
+        </div>
+        
+        <div style="background: rgba(239, 68, 68, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem; border: 1px solid var(--danger);">
+            <p style="margin: 0; color: var(--danger); font-size: 0.9rem;">
+                <strong>⚠️ Warning:</strong> Only use test executables you created. Never bind actual malware.
+            </p>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2>Step 3: Choose Binding Method</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+            <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px; border: 2px solid transparent; cursor: pointer;" onclick="selectMethod('concat')" id="method-concat">
+                <input type="radio" name="method" value="concat" checked style="margin-right: 0.5rem;">
+                <label style="cursor: pointer; font-weight: bold; color: var(--primary);">Concatenation Method</label>
+                <p style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem;">
+                    Appends executable to end of image file. Simple and effective. Most common real-world technique.
+                </p>
+            </div>
+            
+            <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 12px; border: 2px solid transparent; cursor: pointer;" onclick="selectMethod('zip')" id="method-zip">
+                <input type="radio" name="method" value="zip" style="margin-right: 0.5rem;">
+                <label style="cursor: pointer; font-weight: bold; color: var(--secondary);">ZIP Polyglot Method</label>
+                <p style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem;">
+                    Creates a ZIP archive with both files. File is valid as both image and ZIP. More complex detection evasion.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 2rem;">
+        <button type="submit" class="btn btn-primary" style="font-size: 1.2rem; padding: 1.5rem 3rem;">
+            <span><i class="fas fa-link"></i> Bind Files Together</span>
+        </button>
+    </div>
+</form>
+
+<div class="card" style="margin-top: 3rem;">
+    <h2><i class="fas fa-info-circle"></i> How File Binding Works</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+        <div>
+            <h4 style="color: var(--primary);">1. Image Remains Valid</h4>
+            <p style="color: var(--text-secondary);">
+                Image viewers only read the image header and data. They stop reading when they reach the end of 
+                the image data, ignoring anything appended after.
+            </p>
+        </div>
+        
+        <div>
+            <h4 style="color: var(--primary);">2. Executable is Hidden</h4>
+            <p style="color: var(--text-secondary);">
+                The executable code is appended after the image data with marker bytes. It can be extracted 
+                and executed if someone knows it's there.
+            </p>
+        </div>
+        
+        <div>
+            <h4 style="color: var(--primary);">3. File Size Increases</h4>
+            <p style="color: var(--text-secondary);">
+                The bound file will be larger than the original image. This size discrepancy is one detection 
+                method security tools use.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+function updateFileName(inputId) {
+    const input = document.getElementById(inputId);
+    const display = document.getElementById(inputId + '-filename');
+    if (input.files.length > 0) {
+        const file = input.files[0];
+        const size = (file.size / 1024 / 1024).toFixed(2);
+        display.textContent = `${file.name} (${size} MB)`;
+    }
+}
+
+function selectMethod(method) {
+    // Update radio button
+    document.querySelector(`input[value="${method}"]`).checked = true;
+    
+    // Update visual selection
+    document.getElementById('method-concat').style.borderColor = method === 'concat' ? 'var(--primary)' : 'transparent';
+    document.getElementById('method-zip').style.borderColor = method === 'zip' ? 'var(--secondary)' : 'transparent';
+}
+</script>
+{% endblock %}
